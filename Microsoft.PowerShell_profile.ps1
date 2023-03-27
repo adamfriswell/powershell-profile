@@ -1,6 +1,6 @@
 #Aliases for commonly used programs
 Set-Alias vs "C:\Program Files\Microsoft Visual Studio\2022\Professional\Common7\IDE\devenv.exe"
-Set-Alias notion "C:\Users\{your username here}}\AppData\Local\Programs\Notion\Notion.exe"
+Set-Alias notion "C:\Users\{your username here}\AppData\Local\Programs\Notion\Notion.exe"
 
 #Test if consol is in admin mode
 function isadmin(){
