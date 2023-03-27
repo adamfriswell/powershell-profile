@@ -1,0 +1,14 @@
+#!/bin/sh
+LC_ALL=C
+# Select files to format
+FILES=$(git diff --cached --name-only "*.cs" | sed 's| |\\ |g')
+[ -z "$FILES" ] && exit 0
+echo "Formatting files:"
+echo "$FILES"
+# Format all selected files
+echo "$FILES" | cat | xargs | sed -e 's/ /,/g' | xargs dotnet format whitespace --include
+# Add back the modified files to staging
+echo "Adding back to staging..."
+echo "$FILES" | xargs git add
+echo "Committing..."
+exit 0
