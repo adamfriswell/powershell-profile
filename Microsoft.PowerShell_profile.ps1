@@ -2,7 +2,7 @@
 Set-Alias vs "C:\Program Files\Microsoft Visual Studio\2022\Professional\Common7\IDE\devenv.exe"
 Set-Alias notion "C:\Users\{your username here}\AppData\Local\Programs\Notion\Notion.exe"
 
-#Test if consol is in admin mode
+#Test if console is in admin mode
 function isadmin(){
     $currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
     $currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
