@@ -32,7 +32,6 @@ function generateRepoAliases(){
     Write-Host "$count alises created"
 }
 
-
 ## dotnet related functions
 
 #delete all child bin + obj folders
