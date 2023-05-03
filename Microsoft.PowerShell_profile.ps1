@@ -15,6 +15,24 @@ function findfile($name) {
     }
 }
 
+#function to generate aliases for each repo that contains a dotnet solution file
+function generateRepoAliases(){
+    $root = "C:\Users\{username}\source\repos" #or wherever you store your repos
+    Write-Host "Creating aliases..."
+    $count = 0
+    get-childitem $root -recurse | where {$_.extension -eq ".sln"} | % {
+        $count = $count + 1
+        $path = $_.FullName
+        $solutionName = $path.Split("\")[5]
+        $capitals = $solutionName -creplace '[^A-Z]'
+        $aliasShortcut = $capitals.ToLower()
+
+        Write-Host "Set-Alias $aliasShortcut $path"
+    }
+    Write-Host "$count alises created"
+}
+
+
 ## dotnet related functions
 
 #delete all child bin + obj folders
