@@ -15,6 +15,8 @@ function findfile($name) {
     }
 }
 
+## dotnet related functions
+
 #function to generate aliases for each repo that contains a dotnet solution file
 function generateRepoAliases(){
     $root = "C:\Users\{username}\source\repos" #or wherever you store your repos
@@ -31,8 +33,6 @@ function generateRepoAliases(){
     }
     Write-Host "$count alises created"
 }
-
-## dotnet related functions
 
 #delete all child bin + obj folders
 function deletebinobj(){
