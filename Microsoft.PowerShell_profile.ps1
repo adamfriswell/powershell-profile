@@ -3,32 +3,17 @@ Set-Alias vs "C:\Program Files\Microsoft Visual Studio\2022\Professional\Common7
 Set-Alias notion "C:\Users\{username}\AppData\Local\Programs\Notion\Notion.exe"
 
 #Test if console is in admin mode
-function isadmin(){
+function IsAdmin(){
     $currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
     $currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
 }
 
-function findfile($name) {
+function FindFile($name) {
     Get-ChildItem -recurse -filter "*${name}*" -ErrorAction SilentlyContinue | ForEach-Object {
         $place_path = $_.directory
         Write-Output "${place_path}\${_}"
     }
 }
-
-# function createRepoAliasFunctions(){
-#     Set-Variable -name meod -value 'function meod(){ Set-Location -Path C:\Users\N19040\source\repos\NewDay.ClosedLoop.MerchantEndOfDayService
-#     C:\Users\N19040\source\repos\NewDay.ClosedLoop.MerchantEndOfDayService\NewDay.ClosedLoop.MerchantEndOfDayService.sln}' -scope global
-
-#     Invoke-Expression $meod
-#     $meod
-# }
-
-# function setAliasAndCd([cmdlet]$path, [cmdlet]$sln){
-#     $dir = $path + "/" + $sln
-#     Set-Location -Path $path
-#     $dir
-# }
-
 
 #github copilot generated
 function New-RepoAliases {
@@ -87,43 +72,6 @@ function New-RepoAliases {
 }
 New-RepoAliases
 
-function ci(){
-    Set-Location -Path C:\Users\N19040\source\repos\NewDay.ClosedLoop.Core.Infra
-    C:\Users\N19040\source\repos\NewDay.ClosedLoop.Core.Infra\NewDay.ClosedLoop.Core.Infra.sln
-}
-function pi(){
-    Set-Location -Path C:\Users\N19040\source\repos\NewDay.ClosedLoop.Perimeter.Infra
-    C:\Users\N19040\source\repos\NewDay.ClosedLoop.Perimeter.Infra\NewDay.ClosedLoop.Perimeter.Infra.sln
-}
-function mgs(){
-    Set-Location -Path C:\Users\N19040\source\repos\NewDay.ClosedLoop.MerchantGatewayService
-    C:\Users\N19040\source\repos\NewDay.ClosedLoop.MerchantGatewayService\NewDay.ClosedLoop.MerchantGatewayService.sln
-}
-function ss(){
-    Set-Location -Path C:\Users\N19040\source\repos\NewDay.ClosedLoop.SettlementService
-    C:\Users\N19040\source\repos\NewDay.ClosedLoop.SettlementService\NewDay.ClosedLoop.SettlementService.sln
-}
-function os(){
-    Set-Location -Path C:\Users\N19040\source\repos\NewDay.ClosedLoop.OfferService
-    C:\Users\N19040\source\repos\NewDay.ClosedLoop.OfferService\NewDay.ClosedLoop.OfferService.sln
-}
-function rcs(){
-    Set-Location -Path C:\Users\N19040\source\repos\NewDay.ClosedLoop.RateCardService
-    C:\Users\N19040\source\repos\NewDay.ClosedLoop.RateCardService\NewDay.ClosedLoop.RateCardService.sln
-}
-function meod(){
-    Set-Location -Path C:\Users\N19040\source\repos\NewDay.ClosedLoop.MerchantEndOfDayService
-    C:\Users\N19040\source\repos\NewDay.ClosedLoop.MerchantEndOfDayService\NewDay.ClosedLoop.MerchantEndOfDayService.sln
-}
-function eeg(){
-    Set-Location -Path C:\Users\N19040\source\repos\NewDay.ClosedLoop.EgressService
-    C:\Users\N19040\source\repos\NewDay.ClosedLoop.EgressService\NewDay.ClosedLoop.EgressService.sln
-}
-function iig(){
-    Set-Location -Path C:\Users\N19040\source\repos\NewDay.ClosedLoop.IngressService
-    C:\Users\N19040\source\repos\NewDay.ClosedLoop.IngressService\NewDay.ClosedLoop.IngressService.sln
-}
-
 #gmp = git main pull
 function gmp($branch){
     git checkout main
@@ -134,28 +82,10 @@ function gmp($branch){
 
 }
 
-#function to generate aliases for each repo that contains a dotnet solution file
-function generateRepoAliases(){
-    $root = "C:\Users\{username}\source\repos"
-    Write-Host "Creating aliases..."
-    $count = 0
-    get-childitem $root -recurse | where {$_.extension -eq ".sln"} | % {
-        $count = $count + 1
-        $path = $_.FullName
-        $solutionName = $path.Split("\")[5]
-        $capitals = $solutionName -creplace '[^A-Z]'
-        $aliasShortcut = $capitals.ToLower()
-
-        Write-Host $aliasShortcut "=" $path 
-        # Set-Alias $aliasShortcut $path
-    }
-    Write-Host "$count alises created"
-}
-
-## dotnet related functions
+## --------- dotnet related functions ---------
 
 #delete all child bin + obj folders
-function deletebinobj(){
+function DeleteBinObj(){
     Get-ChildItem .\ -include bin,obj -Recurse | ForEach-Object ($_) { remove-item $_.fullname -Force -Recurse }
 }
 
