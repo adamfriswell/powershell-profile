@@ -15,6 +15,23 @@ function FindFile($name) {
     }
 }
 
+function SetAliasIfExists($name, $value){
+    $debug = $false;
+    if($debug){
+        $output = "$name = $value"
+        $output = $output -replace "`n", "" -replace "`r", ""
+        Write-Output $output
+    }
+    else{
+        if (!(Get-Alias -Name $name -ErrorAction SilentlyContinue)) {
+            $scriptBlock = [scriptblock]::Create($value)
+            Set-Item -Path function:global:$name -Value $scriptBlock
+        } else {
+            Write-Warning "Alias $name already exists."
+        }
+    }
+}
+
 #github copilot generated
 function New-RepoAliases {
     $dirs = Get-ChildItem -Path "." -Directory | Where-Object { $_.Name -like "NewDay*" }
@@ -52,22 +69,14 @@ function New-RepoAliases {
             $aliasName = $aliasPart + $aliasName
         }
 
-        $aliasName = "r-" + $aliasName
+        $repoAliasName = "r-" + $aliasName
+        $directoryAliasName = "d-" + $aliasName
 
         $slnFile = Get-ChildItem -Path $dir.FullName -Filter "*.sln" -Recurse | Select-Object -First 1
-        $aliasValue = if ($slnFile) { "cd $($slnFile.DirectoryName); Invoke-Item $($slnFile.FullName)" } else { "cd $($dir.FullName); code ." }
+        $repoAliasValue = if ($slnFile) { "cd $($slnFile.DirectoryName); Invoke-Item $($slnFile.FullName)" } else { "cd $($dir.FullName); code ." }
 
-        ##DEBUG
-        # $output = "$aliasName = $aliasValue"
-        # $output = $output -replace "`n", "" -replace "`r", ""
-        # Write-Output $output
-
-        if (!(Get-Alias -Name $aliasName -ErrorAction SilentlyContinue)) {
-            $scriptBlock = [scriptblock]::Create($aliasValue)
-            Set-Item -Path function:global:$aliasName -Value $scriptBlock
-        } else {
-            Write-Warning "Alias $aliasName already exists."
-        }
+        SetAliasIfExists $repoAliasName $repoAliasValue
+        SetAliasIfExists $directoryAliasName "cd $($dir.FullName)"
     }
 }
 New-RepoAliases
@@ -79,7 +88,6 @@ function gmp($branch){
     if($branch){
         git checkout -b $branch
     }
-
 }
 
 ## --------- dotnet related functions ---------
