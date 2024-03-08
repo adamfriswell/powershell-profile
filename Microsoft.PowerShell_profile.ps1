@@ -15,6 +15,14 @@ function FindFile($name) {
     }
 }
 
+function FindPort($port){
+    netstat -ano | findstr :$port
+}
+
+function KillPort($processId){
+    taskkill /PID $processId /F
+}
+
 function SetAliasIfExists($name, $value){
     $debug = $false;
     if($debug){
@@ -22,13 +30,12 @@ function SetAliasIfExists($name, $value){
         $output = $output -replace "`n", "" -replace "`r", ""
         Write-Output $output
     }
-    else{
-        if (!(Get-Alias -Name $name -ErrorAction SilentlyContinue)) {
-            $scriptBlock = [scriptblock]::Create($value)
-            Set-Item -Path function:global:$name -Value $scriptBlock
-        } else {
-            Write-Warning "Alias $name already exists."
-        }
+
+    if (!(Get-Alias -Name $name -ErrorAction SilentlyContinue)) {
+        $scriptBlock = [scriptblock]::Create($value)
+        Set-Item -Path function:global:$name -Value $scriptBlock
+    } else {
+        Write-Warning "Alias $name already exists."
     }
 }
 
@@ -80,6 +87,29 @@ function New-RepoAliases {
     }
 }
 New-RepoAliases
+
+function UnpinApp([string]$appname) {
+    ((New-Object -Com Shell.Application).NameSpace('shell:::{4234d49b-0245-4df3-b780-3893943456e1}').Items() |
+        Where-Object{$_.Name -eq $appname}).Verbs() | 
+        Where-Object{$_.Name.replace('&','') -match 'Unpin from taskbar'} | 
+        ForEach-Object{$_.DoIt()}
+}
+#unpin unwanted apps from taskbar that company policy enforces
+UnpinApp Word
+UnpinApp Outlook
+UnpinApp Powerpoint
+UnpinApp Excel
+UnpinApp OneDrive
+UnpinApp "Cisco AnyConnect Secure Mobility Client"
+UnpinApp "Microsoft Edge"
+UnpinApp "Google Chrome"
+
+function CosmosDbNotStartingOnLocalHostFix(){
+    #from https://stackoverflow.com/questions/62210493/azure-cosmos-db-emulator-not-running-it-starts-and-then-throws-error/62236663#62236663
+    lodctr /R
+    c:\Windows\Microsoft.NET\Framework\v2.0.50727\aspnet_regiis.exe -i
+    lodctr /R
+}
 
 #gmp = git main pull
 function gmp($branch){
