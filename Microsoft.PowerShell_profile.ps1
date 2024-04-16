@@ -24,7 +24,7 @@ function KillPort($processId){
 }
 
 function SetAliasIfExists($name, $value){
-    $debug = $false;
+    $debug = $true;
     if($debug){
         $output = "$name = $value"
         $output = $output -replace "`n", "" -replace "`r", ""
@@ -54,9 +54,9 @@ function New-RepoAliases {
                 $aliasPart = "ex-"
             } else {
                 if ($parts[$i] -eq "EgressService") {
-                    $aliasPart = "eeg"
+                    $aliasPart = "egrs"
                 } elseif ($parts[$i] -eq "IngressService") {
-                    $aliasPart = "ing"
+                    $aliasPart = "igrs"
                 } else {
                     $aliasPart = [string]::Join("", ([char[]]($parts[$i]) | Where-Object { $_ -cmatch "[A-Z]" })).ToLower()
                     if ($parts[$i] -eq "MultiTenancy" -or $parts[$i] -eq "RegularPayments") {
@@ -118,6 +118,17 @@ function gmp($branch){
     if($branch){
         git checkout -b $branch
     }
+}
+
+#gmm = git main merge
+function gmm(){
+    $branch = git rev-parse --abbrev-ref HEAD
+    git checkout main
+    git pull
+    git checkout $branch
+    git merge main
+    git add .
+    git push
 }
 
 ## --------- dotnet related functions ---------
