@@ -1,6 +1,7 @@
 #Aliases for commonly used programs
 Set-Alias vs "C:\Program Files\Microsoft Visual Studio\2022\Professional\Common7\IDE\devenv.exe"
-Set-Alias notion "C:\Users\{username}\AppData\Local\Programs\Notion\Notion.exe"
+Set-Alias notion "C:\Users\<username>\AppData\Local\Programs\Notion\Notion.exe"
+$debug = $true;
 
 #Test if console is in admin mode
 function IsAdmin(){
@@ -24,7 +25,6 @@ function KillPort($processId){
 }
 
 function SetAliasIfExists($name, $value){
-    $debug = $true;
     if($debug){
         $output = "$name = $value"
         $output = $output -replace "`n", "" -replace "`r", ""
@@ -42,6 +42,11 @@ function SetAliasIfExists($name, $value){
 #github copilot generated
 function New-RepoAliases {
     $dirs = Get-ChildItem -Path "." -Directory | Where-Object { $_.Name -like "NewDay*" }
+    $folders = Get-ChildItem -Path "." -Directory -Recurse | Where-Object { $_.Name -like "*-" }
+    foreach($folder in $folders){
+        $folderDirs = Get-ChildItem -Path $folder.Name -Directory | Where-Object { $_.Name -like "NewDay*" }
+        $dirs += $folderDirs
+    }
 
     foreach ($dir in $dirs) {
         $parts = $dir.Name.Split('.')
@@ -125,7 +130,7 @@ function gmm(){
     $branch = git rev-parse --abbrev-ref HEAD
     git checkout main
     git pull
-    git checkout $branch
+    git checkout - #$branch
     git merge main
     git add .
     git push
@@ -163,4 +168,179 @@ function mapSysLinkForPreCommit([string]$fileName){
     New-Item `
         -ItemType SymbolicLink `
         -Path $mapping.source -Target $mapping.dest
+}
+
+# function nugetUpdate(){
+#     # Get the .csproj file in the current directory
+#     $csprojFile = Get-ChildItem -Path .\ -Filter *.csproj
+
+#     # Fail if there isn't a .csproj file
+#     if ($null -eq $csprojFile) {
+#         Write-Error "No .csproj file found in the current directory."
+#         # exit 1
+#     }
+
+#     # Load the .csproj file
+#     [xml]$csproj = Get-Content -Path $csprojFile.FullName
+
+#     # Get the list of packages and their versions
+#     $packages = $csproj.Project.ItemGroup.PackageReference | ForEach-Object {
+#         [PSCustomObject]@{
+#             Package = $_.Include
+#             Version = $_.Version
+#         }
+#     }
+
+#     # Output the packages and their versions to the user
+#     Write-Output "Packages in the project:"
+#     $packages | ForEach-Object {
+#         Write-Output "$($_.Package) [v$($_.Version)]"
+#     }
+
+#     Write-Output "--------------------------"
+
+#     # # Ask the user which package they want to update
+#     # $packageName = Read-Host -Prompt "Enter the package you want to update"
+
+#     # # Get the list of versions for the selected package
+#     # $versions = dotnet nuget list package $packageName --source "https://api.nuget.org/v3/index.json"
+
+#     # # Output the versions to the user
+#     # Write-Output "Available versions for $packageName :"
+#     # Write-Output $versions
+
+#     # # Ask the user which version they want to upgrade to
+#     # $newVersion = Read-Host -Prompt "Enter the version you want to upgrade to"
+
+#     # # Find the package reference for the package to update
+#     # $packageReference = $csproj.Project.ItemGroup.PackageReference | Where-Object { $_.Include -eq $packageName }
+
+#     # # Update the version
+#     # $packageReference.Version = $newVersion
+
+#     # # Save the .csproj file
+#     # $csproj.Save($csprojFile.FullName)
+
+#     # # Use dotnet restore to update the package
+#     # dotnet restore
+# }
+
+#Install-PackageProvider -Name NuGet -Force
+
+function nugetUpdate() {
+    # Get the .csproj file in the current directory
+    $csprojFile = Get-ChildItem -Path .\ -Filter *.csproj
+
+    # Fail if there isn't a .csproj file
+    if ($null -eq $csprojFile) {
+        Write-Error "No .csproj file found in the current directory."
+        return
+    }
+
+    # Load the .csproj file
+    [xml]$csproj = Get-Content -Path $csprojFile.FullName
+
+    # Get the list of packages and their versions
+    $packages = @()
+    $csproj.Project.ItemGroup | ForEach-Object {
+        if ($_.PackageReference) {
+            $_.PackageReference | ForEach-Object {
+                $packages += [PSCustomObject]@{
+                    Package = $_.Include
+                    Version = $_.Version
+                }
+            }
+        }
+    }
+
+    # Output the packages and their versions to the user
+    Write-Output "Packages in the project:"
+    $packages | ForEach-Object {
+        Write-Output "$($_.Package) [v$($_.Version)]"
+    }
+
+    Write-Output "--------------------------"
+
+    # Prompt the user to select a package to update
+    $packageNames = $packages.Package
+    $selectedPackage = $null
+    while ($null -eq $selectedPackage) {
+        $selectedPackage = Read-Host -Prompt "Enter the name of the package to update"
+        if (-not $packageNames -contains $selectedPackage) {
+            Write-Error "Invalid package name. Please try again."
+            $selectedPackage = $null
+        }
+    }
+
+    # Get the list of available versions for the selected package using the dotnet CLI
+    $availableVersions = dotnet list package --include-prerelease --highest-minor --highest-patch | Select-String -Pattern $selectedPackage -Context 0,1 | ForEach-Object {
+        $_.Context.PostContext[0]
+    }
+
+    if ($availableVersions.Count -eq 0) {
+        Write-Error "No available versions found for package '$selectedPackage'."
+        return
+    }
+
+    # Output the available versions to the user
+    Write-Output "Available versions for package '$selectedPackage':"
+    $availableVersions | ForEach-Object {
+        Write-Output $_
+    }
+
+    Write-Output "--------------------------"
+
+    # Prompt the user to select a new version from the list of available versions
+    $newVersion = $null
+    while ($null -eq $newVersion) {
+        $newVersion = Read-Host -Prompt "Enter the new version for package '$selectedPackage' (choose from the list above)"
+        if (-not $availableVersions -contains $newVersion) {
+            Write-Error "Invalid version. Please try again."
+            $newVersion = $null
+        }
+    }
+
+    # Update the package using the dotnet CLI
+    dotnet add package $selectedPackage --version $newVersion
+
+    Write-Output "Updated '$selectedPackage' to version '$newVersion'."
+}
+
+function Get-NuGetPackageVersionsFromSolution {
+    # Function to extract NuGet package references from a project file
+    function Get-PackageReferences {
+        param (
+            [string]$ProjectFile
+        )
+        Get-Content $ProjectFile | Where-Object { $_ -match "PackageReference" } | ForEach-Object { ($_ -split '"')[1] }
+    }
+
+    # Function to extract project files from the solution file
+    function Get-ProjectFiles {
+        param (
+            [string]$SolutionFile
+        )
+        Get-Content $SolutionFile | Where-Object { $_ -match "Project" } | ForEach-Object { $_.Split(",")[1].Trim() -replace '"|\\' }
+    }
+
+    # Find solution file in the current directory
+    $solutionFiles = Get-ChildItem -Path . -Filter *.sln
+
+    if ($solutionFiles.Count -eq 0) {
+        Write-Host "No solution file found in the current directory."
+        return
+    }
+
+    foreach ($solutionFile in $solutionFiles) {
+        Write-Host "Processing solution file: $($solutionFile.FullName)"
+        # Iterate over project files
+        foreach ($projectFile in (Get-ProjectFiles $solutionFile.FullName)) {
+            # Extract NuGet package references from each project file
+            foreach ($packageReference in (Get-PackageReferences $projectFile)) {
+                # List available versions for each package
+                Write-Host "Available versions for package $packageReference"
+                nuget search $packageReference
+            }
+        }
+    }
 }
