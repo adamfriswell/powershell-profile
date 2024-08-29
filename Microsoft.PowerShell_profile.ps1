@@ -3,7 +3,7 @@ $debug = $false;
 $username = "";
 Set-Alias vs "C:\Program Files\Microsoft Visual Studio\2022\Professional\Common7\IDE\devenv.exe"
 Set-Alias notion "C:\Users\$userName\AppData\Local\Programs\Notion\Notion.exe"
-#oh-my-posh --init --shell pwsh | Invoke-Expression #--config "C:/Users/N19040/oh-my-posh-config.json" | Invoke-Expression 
+#oh-my-posh --init --shell pwsh | Invoke-Expression #--config "C:/Users/$username/oh-my-posh-config.json" | Invoke-Expression 
 
 . "C:\Users\N19040\source\repos\powershell-profile\_scripts\fn_gitImport.ps1"
 
