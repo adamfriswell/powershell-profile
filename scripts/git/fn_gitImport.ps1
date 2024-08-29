@@ -1,6 +1,9 @@
+#gitImport.ps1 as a function
+
 function gitImport(){
-    $path = "C:\Users\N19040\source\repos"
-    $saveLocation = "C:\Users\N19040\OneDrive - NewDay Cards Ltd\Documents\_scripts"
+    $userName = "YOUR_USERNAME"
+    $path = "C:\Users\$userName\source\repos"
+    $saveLocation = "C:\Users\$userName\OneDrive - NewDay Cards Ltd\Documents\_scripts"
 
     # Get all directories that do not start with an underscore
     $directories = Get-ChildItem -Path $path -Directory | Where-Object { $_.Name -notmatch '^_' }

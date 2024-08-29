@@ -1,5 +1,8 @@
-$path = "C:\Users\N19040\source\repos"
-$saveLocation = "C:\Users\N19040\OneDrive - NewDay Cards Ltd\Documents\_scripts"
+#Script to generate a PowerShell script that clones all Git repositories in a specified directory.
+
+$username = "YOUR USERNAME"
+$path = "C:\Users\$username\source\repos"
+$saveLocation = "C:\Users\$username\OneDrive - NewDay Cards Ltd\Documents\_scripts"
 
 # Get all directories that do not start with an underscore
 $directories = Get-ChildItem -Path $path -Directory | Where-Object { $_.Name -notmatch '^_' }

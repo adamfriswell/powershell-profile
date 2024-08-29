@@ -242,7 +242,7 @@
 ################# Attempt4 ####################
 
 # Find the .csproj file in the current directory
-$rootPath = "C:\Users\N19040\source\repos\NewDay.ClosedLoop.MerchantGatewayService"
+$rootPath = "C:\Users\YOUR_USERNAME\source\repos\NewDay.ClosedLoop.MerchantGatewayService"
 $csprojFiles = Get-ChildItem -Path $path -Filter *.csproj #-Recurse
 
 # Check if a .csproj file was found
