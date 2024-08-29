@@ -1,6 +1,11 @@
 #Aliases for commonly used programs
+$debug = $false;
+$username = "";
 Set-Alias vs "C:\Program Files\Microsoft Visual Studio\2022\Professional\Common7\IDE\devenv.exe"
-Set-Alias notion "C:\Users\{username}\AppData\Local\Programs\Notion\Notion.exe"
+Set-Alias notion "C:\Users\$userName\AppData\Local\Programs\Notion\Notion.exe"
+#oh-my-posh --init --shell pwsh | Invoke-Expression #--config "C:/Users/N19040/oh-my-posh-config.json" | Invoke-Expression 
+
+. "C:\Users\N19040\source\repos\powershell-profile\_scripts\fn_gitImport.ps1"
 
 #Test if console is in admin mode
 function IsAdmin(){
@@ -24,7 +29,6 @@ function KillPort($processId){
 }
 
 function SetAliasIfExists($name, $value){
-    $debug = $true;
     if($debug){
         $output = "$name = $value"
         $output = $output -replace "`n", "" -replace "`r", ""
@@ -42,6 +46,11 @@ function SetAliasIfExists($name, $value){
 #github copilot generated
 function New-RepoAliases {
     $dirs = Get-ChildItem -Path "." -Directory | Where-Object { $_.Name -like "NewDay*" }
+    $folders = Get-ChildItem -Path "." -Directory -Recurse | Where-Object { $_.Name -like "*-" }
+    foreach($folder in $folders){
+        $folderDirs = Get-ChildItem -Path $folder.Name -Directory | Where-Object { $_.Name -like "NewDay*" }
+        $dirs += $folderDirs
+    }
 
     foreach ($dir in $dirs) {
         $parts = $dir.Name.Split('.')
@@ -125,7 +134,7 @@ function gmm(){
     $branch = git rev-parse --abbrev-ref HEAD
     git checkout main
     git pull
-    git checkout $branch
+    git checkout - #$branch
     git merge main
     git add .
     git push
