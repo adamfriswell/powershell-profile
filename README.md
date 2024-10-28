@@ -7,7 +7,7 @@ Please feel free to clone this repo and uses these scripts.
 
 ## Instructions:
 1. Clone
-2. Amend the `$username` variable in "...powershell-profile\Microsoft.PowerShell_profile.ps1"
+2. Amend the `$username` variable in "...powershell-profile\Microsoft.PowerShell_profile.ps1", and any subsequent scripts you wish to use
 3. For any Powershell profile (eg. Powershell or Windows Powershell), you can now share these scripts by using the following line in the relevant profile 
 
 > [!NOTE]
@@ -15,3 +15,5 @@ Please feel free to clone this repo and uses these scripts.
 ```
 . "C:\Users\YOUR_USERNAME\source\repos\powershell-profile\Microsoft.PowerShell_profile.ps1"
 ```
+
+4. You might have to set your shells execution policy `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine`
