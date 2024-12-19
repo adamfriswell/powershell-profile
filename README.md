@@ -1,13 +1,13 @@
 # A collection of Powershell scripts
 
 > [!WARNING]
-> I store my repos at `C:\Users\$username\source\repos` and have made that assumption in these scripts.
+> I assume you store all your repos under one folder at $repoPath in variables.ps1
 
 Please feel free to clone this repo and uses these scripts.
 
 ## Instructions:
 1. Clone
-2. Amend the `$username` variable in "...powershell-profile\scripts\variables.ps1"
+2. Updated the variables in "...powershell-profile\scripts\variables.ps1"
 3. For any Powershell profile (eg. Powershell or Windows Powershell), you can now share these scripts by using the following line in the relevant profile
 
 > [!NOTE]

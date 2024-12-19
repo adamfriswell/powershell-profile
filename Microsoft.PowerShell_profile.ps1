@@ -5,14 +5,14 @@ Set-Alias vs "C:\Program Files\Microsoft Visual Studio\2022\Professional\Common7
 Set-Alias notion "C:\Users\$username\AppData\Local\Programs\Notion\Notion.exe"
 
 #--------- Import functions from other scripts ---------
-. "C:\Users\$username\source\repos\powershell-profile\scripts\util.ps1"
-. "C:\Users\$username\source\repos\powershell-profile\scripts\azure\az.ps1"
-. "C:\Users\$username\source\repos\powershell-profile\scripts\dotnet\dotnet.ps1"
+. "$repoPath\powershell-profile\scripts\util.ps1"
+. "$repoPath\powershell-profile\scripts\azure\az.ps1"
+. "$repoPath\powershell-profile\scripts\dotnet\dotnet.ps1"
 
 #Git
-. "C:\Users\$username\source\repos\powershell-profile\scripts\git\generalGit.ps1"
-. "C:\Users\$username\source\repos\powershell-profile\scripts\git\gitImport.ps1"
-. "C:\Users\$username\source\repos\powershell-profile\scripts\git\repoAliases.ps1"
+. "$repoPath\powershell-profile\scripts\git\generalGit.ps1"
+. "$repoPath\powershell-profile\scripts\git\gitImport.ps1"
+. "$repoPath\powershell-profile\scripts\git\repoAliases.ps1"
 #------------------------------------------------------
 
 New-RepoAliases

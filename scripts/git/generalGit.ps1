@@ -21,11 +21,8 @@ function gmm(){
 }
 
 function gitStashes(){
-    # Path to the root directory containing the repos
-    $rootDirectory = "C:\Users\$username\source\repos"
-
     # Get all subdirectories in the root directory
-    $repoDirs = Get-ChildItem -Path $rootDirectory -Directory
+    $repoDirs = Get-ChildItem -Path $repoPath -Directory
 
     # Iterate through each directory
     foreach ($repoDir in $repoDirs) {
