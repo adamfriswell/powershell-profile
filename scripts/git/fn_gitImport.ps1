@@ -3,7 +3,7 @@
 function gitImport(){
     $userName = "YOUR_USERNAME"
     $path = "C:\Users\$userName\source\repos"
-    $saveLocation = "C:\Users\$userName\OneDrive - NewDay Cards Ltd\Documents\_scripts"
+    #$saveLocation = "C:\Users\$userName\OneDrive - NewDay Cards Ltd\Documents\_scripts"
 
     # Get all directories that do not start with an underscore
     $directories = Get-ChildItem -Path $path -Directory | Where-Object { $_.Name -notmatch '^_' }
@@ -12,7 +12,7 @@ function gitImport(){
     $date = Get-Date -Format "yyyyMMddhhmmss"
 
     # Define the output file name with the specified save location
-    $outputFile = Join-Path -Path $saveLocation -ChildPath "gitImport_$date.ps1"
+    $outputFile = Join-Path -Path $path -ChildPath "gitImport_$date.ps1"
 
     # Initialize an array to hold the git clone commands
     $commands = @("cd $path")

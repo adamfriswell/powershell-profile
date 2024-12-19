@@ -6,7 +6,7 @@ Set-Alias notion "C:\Users\$username\AppData\Local\Programs\Notion\Notion.exe"
 
 #--------- Import functions from other scripts ---------
 . "C:\Users\$username\source\repos\powershell-profile\scripts\util.ps1"
-. "C:\Users\$username\source\repos\powershell-profile\scripts\azure\cosmos.ps1"
+. "C:\Users\$username\source\repos\powershell-profile\scripts\azure\az.ps1"
 . "C:\Users\$username\source\repos\powershell-profile\scripts\dotnet\dotnet.ps1"
 
 #Git
@@ -25,6 +25,6 @@ UnpinApp Excel
 UnpinApp OneDrive
 UnpinApp "Cisco AnyConnect Secure Mobility Client"
 UnpinApp "Microsoft Edge"
-UnpinApp "Google Chrome"
+#UnpinApp "Google Chrome"
 
 # #oh-my-posh --init --shell pwsh | Invoke-Expression #--config "C:/Users/$username/oh-my-posh-config.json" | Invoke-Expression 
