@@ -1,3 +1,5 @@
+. $PSScriptRoot\..\variables.ps1
+
 #gmp = git main pull
 function gmp($branch){
     git checkout main
@@ -20,7 +22,7 @@ function gmm(){
 
 function gitStashes(){
     # Path to the root directory containing the repos
-    $rootDirectory = "C:\Users\YOUR_USERNAME\source\repos"
+    $rootDirectory = "C:\Users\$username\source\repos"
 
     # Get all subdirectories in the root directory
     $repoDirs = Get-ChildItem -Path $rootDirectory -Directory

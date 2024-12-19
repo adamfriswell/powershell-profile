@@ -24,3 +24,51 @@ function UnpinApp([string]$appname) {
         Where-Object{$_.Name.replace('&','') -match 'Unpin from taskbar'} | 
         ForEach-Object{$_.DoIt()}
 }
+
+function UnpinAppVerbose([string]$appname) {
+    $debug = $false
+
+    # Create the Shell.Application COM object
+    $shellApp = New-Object -Com Shell.Application
+    
+    # Access the taskbar namespace using the GUID
+    $taskbarNamespace = $shellApp.NameSpace('shell:::{4234d49b-0245-4df3-b780-3893943456e1}')
+    
+    # Check if the taskbar namespace is valid (not null)
+    if ($null -eq $taskbarNamespace) {
+        Write-Host "Failed to access taskbar namespace"
+        return
+    }
+    
+    # Get the items in the taskbar namespace
+    $taskbarItems = $taskbarNamespace.Items()
+    
+    # Find the item that matches the app name
+    $appItem = $taskbarItems | Where-Object { $_.Name -eq $appname }
+    
+    # Check if the app item was found
+    if ($null -eq $appItem) {
+        if($debug){
+            Write-Host "App not found on the taskbar"
+        }
+        return
+    }
+    
+    # Get the verbs (actions) associated with the app item
+    $appVerbs = $appItem.Verbs()
+    
+    # Find the "Unpin from taskbar" verb
+    $unpinVerb = $appVerbs | Where-Object { $_.Name.replace('&', '') -match 'Unpin from taskbar' }
+    
+    # Check if the unpin verb was found
+    if ($null -eq $unpinVerb) {
+        if($debug){
+            Write-Host "Unpin from taskbar action not found"
+        }
+        return
+    }
+    
+    # Perform the "Unpin from taskbar" action
+    $unpinVerb.DoIt()
+    Write-Host "$appname has been unpinned from the taskbar."
+}

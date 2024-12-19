@@ -1,8 +1,9 @@
+. $PSScriptRoot\..\variables.ps1
 #Script to generate a PowerShell function from an existing script file.
 
 # Define the path to the .ps1 file
 $userName="YOUR USERNAME"
-$path = "C:\Users\$userName\OneDrive - NewDay Cards Ltd\Documents\_scripts"
+$path = "C:\Users\$username\OneDrive - NewDay Cards Ltd\Documents\_scripts"
 $files = @("gitImport.ps1") #, "nuget.ps1")
 
 foreach($file in $files){
