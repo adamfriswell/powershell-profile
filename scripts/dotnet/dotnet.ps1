@@ -29,3 +29,10 @@ function mapSysLinkForPreCommit([string]$fileName){
         -ItemType SymbolicLink `
         -Path $mapping.source -Target $mapping.dest
 }
+
+function lint(){
+    .\dotnet-format.cmd
+    git add . 
+    git commit -m "lint"
+    git push
+}
