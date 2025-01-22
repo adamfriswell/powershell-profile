@@ -1,7 +1,6 @@
 . $PSScriptRoot\..\variables.ps1
 
 function laptopSetup(){
-
     #productivity
     winget install -e --id Notion.Notion;
     winget install -e --id Keeper.KeeperDesktop;
