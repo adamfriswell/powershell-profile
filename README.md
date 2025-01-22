@@ -24,3 +24,9 @@ Please feel free to clone this repo and uses these scripts.
 
 > [!NOTE]
 > Find your profile `.ps1` file by opening up a shell in the selected profile and typing `code $profile` to open in VS Code
+
+# Windows Terminal settings
+* Colour schemes = One Half Dark
+* Profiles > Defaults:
+    * Starting Directory = `C://Users/<YOUR_USERNAME>/source/repos`
+    * Apperance > Transparency = 98%
