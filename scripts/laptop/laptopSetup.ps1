@@ -23,7 +23,8 @@ function laptopSetup(){
     ##ms
     winget install -e --id Microsoft.VisualStudioCode;
     winget install -e --id Microsoft.NuGet;
-    winget install -e --id Microsoft.Azd;
+    winget install -e --id Microsoft.Azd; #azd developer CLI
+    winget install -e --id Microsoft.AzureCLI #az CLI
     winget install -e --id Microsoft.Azure.CosmosEmulator;
 
     winget install -e --id Oracle.JavaRuntimeEnvironment;
