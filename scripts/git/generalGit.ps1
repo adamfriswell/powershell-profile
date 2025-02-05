@@ -41,3 +41,16 @@ function gitStashes(){
         }
     }
 }
+
+function updateAllRepos(){
+    # Get all subdirectories in the root directory
+    $repoDirs = Get-ChildItem -Path $repoPath -Directory
+
+    # Iterate through each directory
+    foreach ($repoDir in $repoDirs) {
+        Set-Location -Path $repoDir.FullName
+        Write-Host "Updating $($repoDir.FullName):"
+        gmp
+        Write-Host "------------------------------"
+    }
+}
