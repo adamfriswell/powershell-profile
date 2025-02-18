@@ -54,3 +54,7 @@ function updateAllRepos(){
         Write-Host "------------------------------"
     }
 }
+
+function gpgAgentFix(){
+    gpg-connect-agent
+}
