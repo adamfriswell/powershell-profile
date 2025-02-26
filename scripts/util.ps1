@@ -72,3 +72,8 @@ function UnpinAppVerbose([string]$appname) {
     $unpinVerb.DoIt()
     Write-Host "$appname has been unpinned from the taskbar."
 }
+
+function reload(){
+    Start-Process PowerShell # Launch PowerShell host in new window
+    exit # Exit existing PowerShell host window
+}
