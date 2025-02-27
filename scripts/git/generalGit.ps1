@@ -16,8 +16,8 @@ function gmm(){
     git pull
     git checkout - #$branch
     git merge main
-    git add .
-    git push
+    # git add .
+    # git push
 }
 
 function gitStashes(){
