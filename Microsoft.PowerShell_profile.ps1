@@ -8,6 +8,7 @@ Set-Alias notion "C:\Users\$username\AppData\Local\Programs\Notion\Notion.exe"
 . "$repoPath\powershell-profile\scripts\util.ps1"
 . "$repoPath\powershell-profile\scripts\azure\az.ps1"
 . "$repoPath\powershell-profile\scripts\dotnet\dotnet.ps1"
+. "$repoPath\powershell-profile\scripts\dotnet\nugetUpdate-wip.ps1"
 . "$repoPath\powershell-profile\scripts\newday\newday.ps1"
 
 #Git
