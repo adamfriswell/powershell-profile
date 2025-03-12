@@ -9,5 +9,5 @@ function nugetUpdate($ticket, $pkg, $commitMsg, $prTitle, $prDesc){
     gh pr view
 }
 
-$desc = "Update MT packages to remove query alert duplication"
-nugetUpdate "ACL-1375" "NewDay.MultiTenancy.Service.Service.SingleRegion.Infra" $desc $desc $desc
+# $desc = "Update MT packages to remove query alert duplication"
+# nugetUpdate "ACL-1375" "NewDay.MultiTenancy.Service.Service.SingleRegion.Infra" $desc $desc $desc
