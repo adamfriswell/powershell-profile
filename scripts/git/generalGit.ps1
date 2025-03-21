@@ -20,6 +20,11 @@ function gmm(){
     # git push
 }
 
+function yeet(){
+    git add .
+    git push
+}
+
 function gitStashes(){
     # Get all subdirectories in the root directory
     $repoDirs = Get-ChildItem -Path $repoPath -Directory
