@@ -30,8 +30,16 @@ function mapSysLinkForPreCommit([string]$fileName){
         -Path $mapping.source -Target $mapping.dest
 }
 
-function lint(){
-    .\dotnet-format.cmd
+function lint() {
+    if (Test-Path ".\dotnet-format.cmd") {
+        .\dotnet-format.cmd
+    } elseif (Test-Path ".\dotnet-format.ps1") {
+        .\dotnet-format.ps1
+    } else {
+        Write-Host "Neither dotnet-format.cmd nor dotnet-format.ps1 found."
+        return
+    }
+    
     git add . 
     git commit -m "lint"
     git push
