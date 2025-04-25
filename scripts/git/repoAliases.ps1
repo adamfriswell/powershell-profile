@@ -95,6 +95,7 @@ function SearchRepo($SearchTerm) {
     
     $index = [int]$selection
     if ($index -ge 0 -and $index -lt $results.Count) {
+        Set-Location $repoPath
         Set-Location $results[$index]
     } else {
         Write-Host "Invalid selection" -ForegroundColor Red
