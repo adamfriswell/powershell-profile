@@ -1,3 +1,4 @@
+. $PSScriptRoot\..\variables.ps1
 $debug = $false
 
 function SetAliasIfExists($name, $value){
@@ -64,5 +65,38 @@ function New-RepoAliases {
 
         SetAliasIfExists $repoAliasName $repoAliasValue
         SetAliasIfExists $directoryAliasName "cd $($dir.FullName)"
+    }
+}
+
+function SearchRepo($SearchTerm) {
+    $results = Get-ChildItem -Path $repoPath -Filter "*$SearchTerm*" -Directory -ErrorAction SilentlyContinue
+
+    if ($results.Count -eq 0) {
+        Write-Host "No folders found matching '$SearchTerm'" -ForegroundColor Yellow
+        return
+    }
+
+    if ($results.Count -eq 1) {
+        Set-Location $results
+        return
+    }
+
+    Write-Host "Found $($results.Count) folders matching '$SearchTerm':" -ForegroundColor Cyan
+    
+    for ($i = 0; $i -lt $results.Count; $i++) {
+        $folderName = Split-Path -Path $results[$i] -Leaf
+        Write-Host "[$i] $folderName" -ForegroundColor Green
+    }
+    
+    $selection = Read-Host "Enter number to navigate to (or 'c' to cancel)"
+    if ($selection -eq "c") {
+        return
+    }
+    
+    $index = [int]$selection
+    if ($index -ge 0 -and $index -lt $results.Count) {
+        Set-Location $results[$index]
+    } else {
+        Write-Host "Invalid selection" -ForegroundColor Red
     }
 }
