@@ -63,3 +63,22 @@ function updateAllRepos(){
 function gpgAgentFix(){
     gpg-connect-agent
 }
+
+function gitCloneAndOpen($gitRepoUrl){
+
+    $repoName = $gitRepoUrl -replace '.*\/([^\/]+?)(\.git)?$', '$1'
+
+    Set-Location -Path $repoPath
+
+    if (Test-Path -Path $repoName) {
+        Write-Host "WARNING: Directory '$repoName' already exists!" -ForegroundColor Yellow
+    }
+
+    git clone $gitRepoUrl
+
+    # Check if clone was successful
+    if ($LASTEXITCODE -eq 0) {
+        Set-Location -Path $repoName
+        vs .
+    }
+}
