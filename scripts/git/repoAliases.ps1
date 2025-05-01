@@ -102,3 +102,59 @@ function SearchRepo($SearchTerm) {
         Write-Host "Invalid selection" -ForegroundColor Red
     }
 }
+
+function GetGitRepoOwners {
+    # Specifically target repos in the NewDayStratus organization
+    $repos = gh repo list NewDayStratus --limit 100 --json nameWithOwner | ConvertFrom-Json
+    
+    $results = @()
+    foreach ($repoObj in $repos) {
+        $repo = $repoObj.nameWithOwner
+        
+        # Try to get CODEOWNERS from .github directory
+        $codeownersGithub = $null
+        try {
+            $content = gh api repos/$repo/contents/.github/CODEOWNERS --jq '.content' 2>$null
+            if ($content) {
+                $codeownersGithub = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($content))
+            }
+        } catch {
+            # Silently continue if there's an error
+        }
+        
+        # If not found, try root directory
+        $codeownersRoot = $null
+        if (-not $codeownersGithub) {
+            try {
+                $content = gh api repos/$repo/contents/CODEOWNERS --jq '.content' 2>$null
+                if ($content) {
+                    $codeownersRoot = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($content))
+                }
+            } catch {
+                # Silently continue if there's an error
+            }
+        }
+        
+        # Use whichever CODEOWNERS file was found
+        $codeowners = if ($codeownersGithub) { $codeownersGithub } else { $codeownersRoot }
+        
+        # Extract @codeowners from the file content
+        $codeownersMatch = if ($codeowners) {
+            $matches = [regex]::Matches($codeowners, '@[\w-]+(?:/[\w-]+)?')
+            if ($matches.Count -gt 0) {
+                ($matches | ForEach-Object { $_.Value }) -join ', '
+            } else {
+                "No @codeowners found in file"
+            }
+        } else {
+            "No CODEOWNERS file found"
+        }
+        
+        $results += [PSCustomObject]@{
+            Repository = $repo
+            CodeOwners = $codeownersMatch
+        }
+    }
+    
+    $results | Format-Table -AutoSize
+}

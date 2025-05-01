@@ -79,6 +79,6 @@ function gitCloneAndOpen($gitRepoUrl){
     # Check if clone was successful
     if ($LASTEXITCODE -eq 0) {
         Set-Location -Path $repoName
-        vs .
+        vss
     }
 }
