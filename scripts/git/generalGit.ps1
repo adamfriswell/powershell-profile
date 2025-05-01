@@ -71,10 +71,6 @@ function updateAllRepos(){
     }
 }
 
-function gpgAgentFix(){
-    gpg-connect-agent
-}
-
 function gitCloneAndOpen($gitRepoUrl){
 
     $repoName = $gitRepoUrl -replace '.*\/([^\/]+?)(\.git)?$', '$1'
