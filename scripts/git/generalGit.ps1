@@ -22,13 +22,13 @@ function gmm(){
 
 function yeet($m){
     Write-Host "Yeeting commit..." -ForegroundColor Cyan
+    git add .
     if($m){
         git commit -m $m
     }
     else{
         git commit -m "."
     }
-    git add .
     git push
 }
 
