@@ -32,6 +32,10 @@ function yeet($m){
     git push
 }
 
+function vibes(){
+    git status
+}
+
 function gitStashes(){
     # Get all subdirectories in the root directory
     $repoDirs = Get-ChildItem -Path $repoPath -Directory
