@@ -20,7 +20,13 @@ function gmm(){
     # git push
 }
 
-function yeet(){
+function yeet($m){
+    if($m){
+        git commit -m $m
+    }
+    else{
+        git commit -m "."
+    }
     git add .
     git push
 }
