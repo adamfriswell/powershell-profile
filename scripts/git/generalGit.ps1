@@ -21,6 +21,7 @@ function gmm(){
 }
 
 function yeet($m){
+    Write-Host "Yeeting commit..." -ForegroundColor Cyan
     if($m){
         git commit -m $m
     }

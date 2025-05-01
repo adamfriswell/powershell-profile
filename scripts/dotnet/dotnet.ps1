@@ -1,3 +1,5 @@
+. $PSScriptRoot\..\git\generalGit.ps1
+
 #delete all child bin + obj folders
 function DeleteBinObj(){
     Get-ChildItem .\ -include bin,obj -Recurse | ForEach-Object ($_) { remove-item $_.fullname -Force -Recurse }
@@ -40,7 +42,5 @@ function lint() {
         return
     }
     
-    git add . 
-    git commit -m "lint"
-    git push
+    yeet -m "lint"
 }
