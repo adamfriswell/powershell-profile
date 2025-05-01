@@ -103,7 +103,7 @@ function SearchRepo($SearchTerm) {
     }
 }
 
-function GetGitRepoOwners {
+function GetCodeOwners {
     # Specifically target repos in the NewDayStratus organization
     $repos = gh repo list NewDayStratus --limit 100 --json nameWithOwner | ConvertFrom-Json
     
@@ -157,4 +157,28 @@ function GetGitRepoOwners {
     }
     
     $results | Format-Table -AutoSize
+}
+
+function GetGitConfigUrlOwner {
+    $counter = 1
+    Get-ChildItem -Path . -Recurse -Directory -Force -ErrorAction SilentlyContinue |
+        Where-Object { $_.Name -eq ".git" } |
+        ForEach-Object { 
+            $configPath = Join-Path -Path $_.FullName -ChildPath "config"
+            if (Test-Path $configPath) {
+                $content = Get-Content -Path $configPath -Raw
+                if ($content -match 'url\s*=\s*(?:https?://github\.com/|git@github\.com:)([^/]+)/([^/\s\.]+)') {
+                    [PSCustomObject]@{
+                        RepoPath = $_.FullName
+                        Owner = $matches[1]
+                    }
+                }
+            }
+        } |
+        Sort-Object -Property Owner, RepoPath |
+        ForEach-Object { 
+            $_ | Add-Member -MemberType NoteProperty -Name "Index" -Value $counter -PassThru
+            $counter++
+        } |
+        Format-Table -Property Index, Owner, RepoPath -AutoSize
 }
