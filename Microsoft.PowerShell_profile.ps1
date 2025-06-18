@@ -5,7 +5,7 @@ Set-Alias vs "C:\Program Files\Microsoft Visual Studio\2022\Professional\Common7
 Set-Alias ntn "C:\Users\$username\AppData\Local\Programs\Notion\Notion.exe"
 
 Get-ChildItem -Path "$repoPath\powershell-profile\scripts" -Recurse -Filter "*.ps1" | ForEach-Object { . $_.FullName }
-new-RepoAliases
+newRepoAliases
 Set-Alias vss Open-Solution
 
 #unpin unwanted apps from taskbar that company policy enforces
