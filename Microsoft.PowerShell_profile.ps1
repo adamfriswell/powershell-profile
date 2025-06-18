@@ -6,7 +6,7 @@ Set-Alias ntn "C:\Users\$username\AppData\Local\Programs\Notion\Notion.exe"
 
 Get-ChildItem -Path "$repoPath\powershell-profile\scripts" -Recurse -Filter "*.ps1" | ForEach-Object { . $_.FullName }
 newRepoAliases
-Set-Alias vss openSolution
+Set-Alias vss openSln
 
 #unpin unwanted apps from taskbar that company policy enforces
 unpinAppVerbose Word
