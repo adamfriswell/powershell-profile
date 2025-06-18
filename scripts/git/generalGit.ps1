@@ -36,6 +36,25 @@ function vibes(){
     git status
 }
 
+function recursiveVibes(){
+    # Get all subdirectories in the root directory
+    $repoDirs = Get-ChildItem -Path $repoPath -Directory
+
+    # Iterate through each directory
+    foreach ($repoDir in $repoDirs) {
+        # Change to the repository directory
+        Set-Location -Path $repoDir.FullName
+        
+        # Get the list of stashes in the repository
+        Write-Host "Git status for $($repoDir.FullName):"
+        git status
+        Write-Host "------------------------------"
+    }
+
+    Set-Location -Path $repoPath
+}
+
+
 function gitStashes(){
     # Get all subdirectories in the root directory
     $repoDirs = Get-ChildItem -Path $repoPath -Directory
@@ -56,6 +75,8 @@ function gitStashes(){
             Write-Host "No stashes found in $($repoDir.FullName)."
         }
     }
+
+    Set-Location -Path $repoPath
 }
 
 function updateAllRepos(){
