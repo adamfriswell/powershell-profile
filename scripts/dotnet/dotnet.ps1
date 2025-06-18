@@ -1,7 +1,7 @@
 . $PSScriptRoot\..\git\generalGit.ps1
 
 #delete all child bin + obj folders
-function DeleteBinObj(){
+function deleteBinObj(){
     Get-ChildItem .\ -include bin,obj -Recurse | ForEach-Object ($_) { remove-item $_.fullname -Force -Recurse }
 }
 

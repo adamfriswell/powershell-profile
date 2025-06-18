@@ -5,17 +5,17 @@ Set-Alias vs "C:\Program Files\Microsoft Visual Studio\2022\Professional\Common7
 Set-Alias ntn "C:\Users\$username\AppData\Local\Programs\Notion\Notion.exe"
 
 Get-ChildItem -Path "$repoPath\powershell-profile\scripts" -Recurse -Filter "*.ps1" | ForEach-Object { . $_.FullName }
-New-RepoAliases
+new-RepoAliases
 Set-Alias vss Open-Solution
 
 #unpin unwanted apps from taskbar that company policy enforces
-UnpinAppVerbose Word
-# UnpinAppVerbose Outlook
-UnpinAppVerbose Powerpoint
-UnpinAppVerbose Excel
-UnpinAppVerbose OneDrive
-UnpinAppVerbose "Cisco AnyConnect Secure Mobility Client"
-UnpinAppVerbose "Microsoft Edge"
-#UnpinApp "Google Chrome"
+unpinAppVerbose Word
+# unpinAppVerbose Outlook
+unpinAppVerbose Powerpoint
+unpinAppVerbose Excel
+unpinAppVerbose OneDrive
+unpinAppVerbose "Cisco AnyConnect Secure Mobility Client"
+unpinAppVerbose "Microsoft Edge"
+#unpinApp "Google Chrome"
 
 #oh-my-posh --init --shell pwsh | Invoke-Expression #--config "C:/Users/$username/oh-my-posh-config.json" | Invoke-Expression 

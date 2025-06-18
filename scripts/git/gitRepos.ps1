@@ -1,7 +1,7 @@
 . $PSScriptRoot\..\variables.ps1
 $debug = $false
 
-function SetAliasIfExists($name, $value){
+function setAliasIfExists($name, $value){
     if($debug){
         $output = "$name = $value"
         $output = $output -replace "`n", "" -replace "`r", ""
@@ -16,7 +16,7 @@ function SetAliasIfExists($name, $value){
     }
 }
 
-function New-RepoAliases {
+function newRepoAliases {
     $dirs = Get-ChildItem -Path "." -Directory | Where-Object { $_.Name -like "NewDay*" }
     $folders = Get-ChildItem -Path "." -Directory -Recurse | Where-Object { $_.Name -like "*-" }
     foreach($folder in $folders){
@@ -68,7 +68,7 @@ function New-RepoAliases {
     }
 }
 
-function SearchRepo($SearchTerm) {
+function searchRepo($SearchTerm) {
     $results = Get-ChildItem -Path $repoPath -Filter "*$SearchTerm*" -Directory -ErrorAction SilentlyContinue
 
     if ($results.Count -eq 0) {
@@ -103,7 +103,7 @@ function SearchRepo($SearchTerm) {
     }
 }
 
-function GetCodeOwners {
+function getCodeOwners {
     # Specifically target repos in the NewDayStratus organization
     $repos = gh repo list NewDayStratus --limit 100 --json nameWithOwner | ConvertFrom-Json
     
@@ -159,7 +159,7 @@ function GetCodeOwners {
     $results | Format-Table -AutoSize
 }
 
-function GetGitConfigUrlOwner {
+function getGitConfigUrlOwner {
     $counter = 1
     Get-ChildItem -Path . -Recurse -Directory -Force -ErrorAction SilentlyContinue |
         Where-Object { $_.Name -eq ".git" } |

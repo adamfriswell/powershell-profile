@@ -1,4 +1,4 @@
-function Open-Solution {
+function openSln {
     $solutionFile = Get-ChildItem -Path . -Filter *.sln | Select-Object -First 1
     
     if ($solutionFile) {
