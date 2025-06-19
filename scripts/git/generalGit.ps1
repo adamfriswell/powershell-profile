@@ -48,7 +48,7 @@ function yeet($m){
 
 <#
 .SYNOPSIS
-    Git: status
+    Git: status alias
 #>
 function vibes(){
     git status
@@ -56,7 +56,7 @@ function vibes(){
 
 <#
 .SYNOPSIS
-    Git: status, for all repos
+    Git: status alias, for all repos
 #>
 function recursiveVibes(){
     # Get all subdirectories in the root directory
@@ -69,7 +69,7 @@ function recursiveVibes(){
         
         # Get the list of stashes in the repository
         Write-Host "Git status for $($repoDir.FullName):"
-        git status
+        vibes
         Write-Host "------------------------------"
     }
 
