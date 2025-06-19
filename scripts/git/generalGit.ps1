@@ -1,6 +1,11 @@
 . $PSScriptRoot\..\variables.ps1
 
-#gmp = git main pull
+<#
+.SYNOPSIS
+    Git: pull main, opt checkout branch
+.DESCRIPTION
+    gmp stands for "git main pull". 
+#>
 function gmp($branch){
     git checkout main
     git pull
@@ -9,7 +14,12 @@ function gmp($branch){
     }
 }
 
-#gmm = git main merge
+<#
+.SYNOPSIS
+    Git: merge main into current branch
+.DESCRIPTION
+    gmm stands for "git main merge". 
+#>
 function gmm(){
     #$branch = git rev-parse --abbrev-ref HEAD
     git checkout main
@@ -20,6 +30,10 @@ function gmm(){
     # git push
 }
 
+<#
+.SYNOPSIS
+    Git: stage, commit and push changes
+#>
 function yeet($m){
     Write-Host "Yeeting commit..." -ForegroundColor Cyan
     git add .
@@ -32,10 +46,18 @@ function yeet($m){
     git push
 }
 
+<#
+.SYNOPSIS
+    Git: status
+#>
 function vibes(){
     git status
 }
 
+<#
+.SYNOPSIS
+    Git: status, for all repos
+#>
 function recursiveVibes(){
     # Get all subdirectories in the root directory
     $repoDirs = Get-ChildItem -Path $repoPath -Directory
@@ -54,7 +76,10 @@ function recursiveVibes(){
     Set-Location -Path $repoPath
 }
 
-
+<#
+.SYNOPSIS
+    Git: find any stashes in all repos
+#>
 function gitStashes(){
     # Get all subdirectories in the root directory
     $repoDirs = Get-ChildItem -Path $repoPath -Directory
@@ -79,6 +104,10 @@ function gitStashes(){
     Set-Location -Path $repoPath
 }
 
+<#
+.SYNOPSIS
+    Git: Pull latest changes for all repos
+#>
 function updateAllRepos(){
     # Get all subdirectories in the root directory
     $repoDirs = Get-ChildItem -Path $repoPath -Directory
@@ -92,6 +121,10 @@ function updateAllRepos(){
     }
 }
 
+<#
+.SYNOPSIS
+    Git: Clone and open a repo
+#>
 function gitCloneAndOpen($gitRepoUrl){
 
     $repoName = $gitRepoUrl -replace '.*\/([^\/]+?)(\.git)?$', '$1'

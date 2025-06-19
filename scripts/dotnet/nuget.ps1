@@ -1,4 +1,7 @@
-#Create branch, update matching packages, commit and create PR
+<#
+.SYNOPSIS
+    Create branch, update matching packages, commit and create PR
+#>
 function nugetUpdate($ticket, $pkg, $commitMsg, $prTitle, $prDesc){
     gmp -branch $ticket 
     dotnet-outdated -inc $pkg -u

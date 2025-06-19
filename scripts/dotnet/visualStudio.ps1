@@ -1,3 +1,7 @@
+<#
+.SYNOPSIS
+    Open Visual Studio solution
+#>
 function openSln {
     $solutionFile = Get-ChildItem -Path . -Filter *.sln | Select-Object -First 1
     
