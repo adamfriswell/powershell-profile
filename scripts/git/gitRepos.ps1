@@ -77,7 +77,8 @@ function searchRepo($SearchTerm) {
     }
 
     if ($results.Count -eq 1) {
-        Set-Location $results
+        Set-Location $repoPath
+        Set-Location $results[0]
         return
     }
 

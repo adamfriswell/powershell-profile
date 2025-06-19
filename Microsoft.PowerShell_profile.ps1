@@ -8,6 +8,7 @@ Get-ChildItem -Path "$repoPath\powershell-profile\scripts" -Recurse -Filter "*.p
 newRepoAliases
 Set-Alias vss openSln
 Set-Alias sr searchRepo
+Set-Alias c cls
 
 #unpin unwanted apps from taskbar that company policy enforces
 unpinAppVerbose Word
