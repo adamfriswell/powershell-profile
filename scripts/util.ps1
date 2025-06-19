@@ -1,8 +1,16 @@
+<#
+.SYNOPSIS
+    Tests if shell is running as admin
+#>
 function isAdmin(){
     $currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
     $currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
 }
 
+<#
+.SYNOPSIS
+    Find a file by name
+#>
 function findFile($name) {
     Get-ChildItem -recurse -filter "*${name}*" -ErrorAction SilentlyContinue | ForEach-Object {
         $place_path = $_.directory
@@ -10,14 +18,27 @@ function findFile($name) {
     }
 }
 
+<#
+.SYNOPSIS
+    Finds a port
+#>
 function findPort($port){
     netstat -ano | findstr :$port
 }
 
+<#
+.SYNOPSIS
+    Kills a port
+#>
 function killPort($processId){
     taskkill /PID $processId /F
 }
 
+
+<#
+.SYNOPSIS
+    Unpins an app from taskbar that is auto added by company policy
+#>
 function unpinApp([string]$appname) {
     ((New-Object -Com Shell.Application).NameSpace('shell:::{4234d49b-0245-4df3-b780-3893943456e1}').Items() |
         Where-Object{$_.Name -eq $appname}).Verbs() | 
@@ -25,6 +46,10 @@ function unpinApp([string]$appname) {
         ForEach-Object{$_.DoIt()}
 }
 
+<#
+.SYNOPSIS
+    Unpins an app from taskbar that is auto added by company policy, with verbose logging
+#>
 function unpinAppVerbose([string]$appname) {
     $debug = $false
 

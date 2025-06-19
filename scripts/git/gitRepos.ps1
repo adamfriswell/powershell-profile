@@ -1,6 +1,10 @@
 . $PSScriptRoot\..\variables.ps1
 $debug = $false
 
+<#
+.SYNOPSIS
+    Private fn to set an alias if it does not already exist
+#>
 function setAliasIfExists($name, $value){
     if($debug){
         $output = "$name = $value"
@@ -16,6 +20,10 @@ function setAliasIfExists($name, $value){
     }
 }
 
+<#
+.SYNOPSIS
+    Creates aliases for all NewDay repos in the current directory.
+#>
 function newRepoAliases {
     $dirs = Get-ChildItem -Path "." -Directory | Where-Object { $_.Name -like "NewDay*" }
     $folders = Get-ChildItem -Path "." -Directory -Recurse | Where-Object { $_.Name -like "*-" }
@@ -68,6 +76,10 @@ function newRepoAliases {
     }
 }
 
+<#
+.SYNOPSIS
+    Searches for repo
+#>
 function searchRepo($SearchTerm) {
     $results = Get-ChildItem -Path $repoPath -Filter "*$SearchTerm*" -Directory -ErrorAction SilentlyContinue
 
@@ -104,6 +116,10 @@ function searchRepo($SearchTerm) {
     }
 }
 
+<#
+.SYNOPSIS
+    Retrieves CODEOWNERS from all repositories in the NewDayStratus org
+#>
 function getCodeOwners {
     # Specifically target repos in the NewDayStratus organization
     $repos = gh repo list NewDayStratus --limit 100 --json nameWithOwner | ConvertFrom-Json
@@ -160,6 +176,10 @@ function getCodeOwners {
     $results | Format-Table -AutoSize
 }
 
+<#
+.SYNOPSIS
+    Retrieves the owner of the repository from the .git/config file
+#>
 function getGitConfigUrlOwner {
     $counter = 1
     Get-ChildItem -Path . -Recurse -Directory -Force -ErrorAction SilentlyContinue |

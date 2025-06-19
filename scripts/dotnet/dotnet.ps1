@@ -8,17 +8,26 @@ function deleteBinObj(){
     Get-ChildItem .\ -include bin,obj -Recurse | ForEach-Object ($_) { remove-item $_.fullname -Force -Recurse }
 }
 
-#pre-commit hook to run dotnet format
+<#
+.SYNOPSIS
+    Pre-commit hook to run dotnet format
+#>
 function dotnetformat() {
     mapSysLinkForPreCommit "pre-commit"
 }
 
-#pre-commit hook to run dotnet format for whitespaces
+<#
+.SYNOPSIS
+    Pre-commit hook to run dotnet format for whitespaces
+#>
 function dotnetformatwhitespace() {
     mapSysLinkForPreCommit "pre-commit-whitespace"
 }
 
-#maps a syslink to enable pre-commit hook
+<#
+.SYNOPSIS
+    Maps a syslink to enable pre-commit hook
+#>
 function mapSysLinkForPreCommit([string]$fileName){
     $mapping = @{
         dest   = "c:\bash hooks\" + $filename

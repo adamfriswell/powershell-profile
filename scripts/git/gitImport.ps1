@@ -1,6 +1,9 @@
 . $PSScriptRoot\..\variables.ps1
 
-#Creates a script to clone all git repositories at your repo directory, output file is saved to repo directory
+<#
+.SYNOPSIS
+    A script to clone all git repositories at your repo directory, output file is saved to repo directory
+#>
 function gitImport(){
     #$saveLocation = "C:\Users\$userName\OneDrive - NewDay Cards Ltd\Documents\_scripts"
 

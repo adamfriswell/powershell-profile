@@ -1,12 +1,16 @@
 . $PSScriptRoot\..\variables.ps1
+
+<#
+.SYNOPSIS
+    Prints a table of all CL tenantIds
+#>
 function tenantIds($tenantCode, $tenantId) {
     # Hardcoded directory path
     $path = "$repoPath\NewDay.ClosedLoop.Core.Infra\src\NewDay.ClosedLoop.Core.Configuration\configuration\ndt"
 
     # Ensure the directory exists
     if (-not (Test-Path -Path $path -PathType Container)) {
-        Write-Error "Directory does not exist: $p
-    ath"
+        Write-Error "Directory does not exist: $path"
         exit 1
     }
 

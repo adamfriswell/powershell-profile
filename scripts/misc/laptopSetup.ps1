@@ -1,5 +1,9 @@
 . $PSScriptRoot\..\variables.ps1
 
+<#
+.SYNOPSIS
+    Winget commands for new laptop setup
+#>
 function laptopSetup(){
     #productivity
     winget install -e --id Notion.Notion;

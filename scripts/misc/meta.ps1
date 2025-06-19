@@ -1,6 +1,9 @@
 . $PSScriptRoot\..\variables.ps1
 
-#Script to generate a PowerShell function from an existing script file.
+<#
+.SYNOPSIS
+    Generate a PowerShell function from an existing script file
+#>
 function powershellMetaConvertOtherScriptsToFunctions() {
     # Define the path to the .ps1 file
     $userName = "YOUR USERNAME"
@@ -30,18 +33,14 @@ function powershellMetaConvertOtherScriptsToFunctions() {
     }
 }
 
+<#
+.SYNOPSIS
+    Lists all functions defined in the PowerShell profile repository.
+.DESCRIPTION
+    Scans all .ps1 files in the repository and extracts function names to provide a quick reference.
+    Results are ordered by file name, then function name.
+#>
 function fnHelp {
-    <#
-    .SYNOPSIS
-        Lists all functions defined in the PowerShell profile repository.
-    .DESCRIPTION
-        Scans all .ps1 files in the repository and extracts function names to provide a quick reference.
-        Results are ordered by file name, then function name.
-    .EXAMPLE
-        fnHelp
-        Lists all functions organized by file.
-    #>
-    
     # Get the path to the repository
     $repoPath = Split-Path -Parent (Split-Path -Parent $PSCommandPath)
     

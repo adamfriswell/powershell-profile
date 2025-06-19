@@ -1,6 +1,9 @@
 . $PSScriptRoot\..\variables.ps1
 
-# PowerShell script to convert Claude JSON export to formatted Markdown
+<#
+.SYNOPSIS
+    Convert Claude JSON export to formatted Markdown
+#>
 function convertClaudeExportToMd() {
 
     # Read the JSON file
