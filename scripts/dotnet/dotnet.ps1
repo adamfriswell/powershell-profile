@@ -32,6 +32,10 @@ function mapSysLinkForPreCommit([string]$fileName){
         -Path $mapping.source -Target $mapping.dest
 }
 
+<#
+.SYNOPSIS
+    Runs dotnetformat.cmd/ps1 and commits the changes
+#>
 function lint() {
     if (Test-Path ".\dotnet-format.cmd") {
         .\dotnet-format.cmd
