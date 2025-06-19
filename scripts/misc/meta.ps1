@@ -62,7 +62,7 @@ function fnHelp {
             $functionName = $match.Groups[1].Value
             $relativePath = $file.FullName.Replace($repoPath, "").TrimStart("\")
             $help = Get-Help $functionName -ErrorAction SilentlyContinue
-            $synopsis = if ($help -and $help.Synopsis) { $help.Synopsis.Trim() } else { "" }
+            $synopsis = if ($help -and $help.Synopsis) { $help.Synopsis } else { "" }
             $functions += [PSCustomObject]@{
                 Name = $functionName
                 File = $relativePath
