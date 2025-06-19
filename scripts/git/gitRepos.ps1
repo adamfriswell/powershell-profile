@@ -98,7 +98,7 @@ function searchRepo($SearchTerm) {
     if ($index -ge 0 -and $index -lt $results.Count) {
         Set-Location $repoPath
         Set-Location $results[$index]
-        vss .
+        openSolution .
     } else {
         Write-Host "Invalid selection" -ForegroundColor Red
     }
