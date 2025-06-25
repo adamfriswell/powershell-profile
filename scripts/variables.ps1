@@ -1,2 +1,2 @@
-$username = "N19040"
+$username = "adamf"
 $repoPath = "C:\Users\$username\source\repos"
