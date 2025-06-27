@@ -1,5 +1,8 @@
 $billingServicePath = "C:\Users\adamf\source\repos\BillingService"
 
+Set-Item -Path function:global:"bs" -Value $billingServicePath
+Set-Item -Path function:global:"zvs" -Value "C:\Users\adamf\source\repos\VehicleService"
+
 #Aliases for cd to paths
 $invswa = [scriptblock]::Create("cd $billingServicePath\InvestorDashboard.Swa")
 Set-Item -Path function:global:"invswa" -Value $invswa
@@ -60,8 +63,8 @@ function startManApi(){
 }
 
 #Start SWA
-function startSwa(){
-    swa start http://localhost:3000 --api-location http://localhost:7071
+function startSwa($reactPort = 3000, $apiPort = 7071){
+    swa start http://localhost:$reactPort --api-location http://localhost:$apiPort
 }
 
 function startInvSwa(){
@@ -76,7 +79,7 @@ function startOppSwa(){
 
 function startManSwa(){
     manswa
-    startSwa
+    startSwa -reactPort 5173
 }
 
 #All in one
