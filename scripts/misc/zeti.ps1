@@ -101,34 +101,26 @@ function npxStartManSwa(){
     npxStartSwa -reactPort 5173
 }
 
-
-#All in one
-function localInv(){
-    serveInvContent
-    wt new-tab
-
-    startInvApi
-    wt new-tab
-
-    startInvSwa
+#Start each portal: serve content, start API, start SWA
+#currently not using above aliases as powershell profile won't load when starting new Windows Teminal tab
+function startManage(){
+    startPortal "BillingService.Swa" "BillingService.Swa.Api" 5173
 }
 
-function localOpp(){
-    serveOppContent
-    wt new-tab
-
-    startOppApi
-    wt new-tab
-
-    startOppSwa
+function startInvest(){
+    startPortal "InvestorDashboard.Swa" "InvestorDashboard.Api"
 }
 
-function localMan(){
-    serveManContent
-    wt new-tab
+function startOperate(){
+    startPortal "AssetOperatorPortal" "AssetOperatorPortal.Api"
+}
 
-    startManApi
-    wt new-tab
-
-    startManSwa
+function startPortal($swaPath, $apiPath, $reactPort = 3000, $apiPort = 7071, $swaPort = 4280){
+    wt -w 0 new-tab --title "Serve Content" -d "C:\Users\adamf\source\repos\BillingService\$swaPath" pwsh -c "yarn start"
+    wt -w 0 new-tab --title "API" -d "C:\Users\adamf\source\repos\BillingService\$swaPath\$apiPath" pwsh -c "func start"
+    wt -w 0 new-tab --title "SWA" -d "C:\Users\adamf\source\repos\BillingService\$swaPath" pwsh -c "npx @azure/static-web-apps-cli@2.0.1 start http://localhost:$reactPort --api-location http://localhost:$apiPort"
+    
+    Start-Process chrome "http://localhost:$reactPort"
+    Start-Process chrome "http://localhost:$apiPort"
+    Start-Process chrome "http://localhost:$swaPort"
 }
