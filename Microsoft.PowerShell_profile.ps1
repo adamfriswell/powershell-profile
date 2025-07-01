@@ -18,7 +18,6 @@ Set-Alias ntn "C:\Users\$username\AppData\Local\Programs\Notion\Notion.exe"
 . "$repoPath\powershell-profile\scripts\misc\meta.ps1"
 . "$repoPath\powershell-profile\scripts\misc\newday.ps1"
 . "$repoPath\powershell-profile\scripts\misc\zeti.ps1"
-. "$repoPath\powershell-profile\scripts\misc\loadRepoAliases.ps1"
 
 # Get-ChildItem -Path "$repoPath\powershell-profile\scripts" -Recurse -Filter "*.ps1" | ForEach-Object { . $_.FullName }
 # newRepoAliases
