@@ -1,7 +1,7 @@
 $billingServicePath = "C:\Users\adamf\source\repos\BillingService"
 
-Set-Item -Path function:global:"bs" -Value $billingServicePath
-Set-Item -Path function:global:"zvs" -Value "C:\Users\adamf\source\repos\VehicleService"
+Set-Item -Path function:global:"bs" -Value "cd $billingServicePath"
+Set-Item -Path function:global:"zvs" -Value "cd C:\Users\adamf\source\repos\VehicleService"
 
 #Aliases for cd to paths
 $invswa = [scriptblock]::Create("cd $billingServicePath\InvestorDashboard.Swa")
