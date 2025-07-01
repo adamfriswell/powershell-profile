@@ -67,6 +67,10 @@ function startSwa($reactPort = 3000, $apiPort = 7071){
     swa start http://localhost:$reactPort --api-location http://localhost:$apiPort
 }
 
+function npxStartSwa($reactPort = 3000, $apiPort = 7071){
+    npx @azure/static-web-apps-cli@2.0.1 start http://localhost:$reactPort --api-location http://localhost:$apiPort
+}
+
 function startInvSwa(){
     invswa
     startSwa
@@ -81,6 +85,22 @@ function startManSwa(){
     manswa
     startSwa -reactPort 5173
 }
+
+function npxStartInvSwa(){
+    invswa
+    npxStartSwa
+}
+
+function npxStartOppSwa(){
+    oppswa
+    npxStartSwa
+}
+
+function npxStartManSwa(){
+    manswa
+    npxStartSwa -reactPort 5173
+}
+
 
 #All in one
 function localInv(){
