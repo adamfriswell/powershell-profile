@@ -99,6 +99,6 @@ function unpinAppVerbose([string]$appname) {
 }
 
 function reload(){
-    Start-Process PowerShell # Launch PowerShell host in new window
+    Start-Process wt # Launch Windows Terminal in new window
     exit # Exit existing PowerShell host window
 }
