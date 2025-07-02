@@ -2,6 +2,7 @@
 
 #Aliases for commonly used programs
 Set-Alias vs "C:\Program Files\Microsoft Visual Studio\2022\Professional\Common7\IDE\devenv.exe"
+Set-Alias vs-azurite "C:\Program Files\Microsoft Visual Studio\2022\Professional\Common7\IDE\Extensions\Microsoft\Azure Storage Emulator\azurite.exe"
 Set-Alias ntn "C:\Users\$username\AppData\Local\Programs\Notion\Notion.exe"
 
 # Load scripts selectively instead of recursively scanning all files
