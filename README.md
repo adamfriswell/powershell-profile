@@ -12,7 +12,7 @@ Please feel free to clone this repo and uses these scripts.
 ```
 . "C:\Users\YOUR_USERNAME\source\repos\powershell-profile\Microsoft.PowerShell_profile.ps1"
 ```
-4. You might have to set your shells execution policy `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine`
+4. You might have to set your shells execution policy `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine`, you might also need to flip this setting ![executionScopeSetting](executionScopeSetting.png)
 5. These scripts use vanilla Powershell along with the following CLI tools as a dependancy for some functions:
     * [Git](https://git-scm.com/)
     * [dotnet SDK](https://dotnet.microsoft.com/en-us/download)

@@ -124,3 +124,5 @@ function startPortal($swaPath, $apiPath, $reactPort = 3000, $apiPort = 7071, $sw
     Start-Process chrome "http://localhost:$apiPort"
     Start-Process chrome "http://localhost:$swaPort"
 }
+
+# dotnet test BillingService.IntegrationTests/BillingService.IntegrationTests.csproj
