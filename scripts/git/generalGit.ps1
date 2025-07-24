@@ -32,6 +32,14 @@ function gmm(){
 
 <#
 .SYNOPSIS
+    Git: checkout last branch
+#>
+function lastBranch(){
+    git checkout -
+}
+
+<#
+.SYNOPSIS
     Git: stage, commit and push changes
 #>
 function yeet($m){
