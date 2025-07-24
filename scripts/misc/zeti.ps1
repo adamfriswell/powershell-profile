@@ -182,7 +182,7 @@ function npxStartManSwa(){
 .SYNOPSIS
     invest npx swa start alias
 #>
-function npxStartInvSwa(){
+function npxSelfStartInvSwa(){
     invswa
     npxSelfHostedStartSwa
 }
@@ -191,7 +191,7 @@ function npxStartInvSwa(){
 .SYNOPSIS
     operate npx swa start alias
 #>
-function npxStartOppSwa(){
+function npxSelfStartOppSwa(){
     oppswa
     npxSelfHostedStartSwa
 }
@@ -200,7 +200,7 @@ function npxStartOppSwa(){
 .SYNOPSIS
     manage npx swa start alias
 #>
-function npxStartManSwa(){
+function npxSelfStartManSwa(){
     manswa
     npxSelfHostedStartSwa -reactPort 5173
 }
