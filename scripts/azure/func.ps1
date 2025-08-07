@@ -1,5 +1,13 @@
 <#
 .SYNOPSIS
+    Fetch Azure Functions app settings and set as local.settings.json
+#>
+function getFuncAppSettings($fnApp){
+    func azure functionapp fetch-app-settings $fnApp
+}
+
+<#
+.SYNOPSIS
     Hit an Azure Functions endpoint
 #>
 function hitFunctionEndpoint($endpoint) {
