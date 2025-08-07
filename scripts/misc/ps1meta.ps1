@@ -80,3 +80,8 @@ function fnHelp {
     # Then display as a table
     $sortedFunctions | Format-Table -AutoSize
 }
+
+function reload(){
+    Start-Process wt # Launch Windows Terminal in new window
+    exit # Exit existing PowerShell host window
+}

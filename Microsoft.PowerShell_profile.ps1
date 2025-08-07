@@ -25,8 +25,8 @@ Set-Alias ntn "C:\Users\$username\AppData\Local\Programs\Notion\Notion.exe"
 
 . "$repoPath\powershell-profile\scripts\misc\claude.ps1"
 . "$repoPath\powershell-profile\scripts\misc\laptopSetup.ps1"
-. "$repoPath\powershell-profile\scripts\misc\meta.ps1"
 . "$repoPath\powershell-profile\scripts\misc\newday.ps1"
+. "$repoPath\powershell-profile\scripts\misc\ps1meta.ps1"
 . "$repoPath\powershell-profile\scripts\misc\zeti.ps1"
 
 

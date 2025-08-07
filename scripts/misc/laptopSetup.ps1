@@ -52,7 +52,9 @@ function tools ([switch]$ShowOther) {
         # Windows 🖼️
         'explorer' = 'Windows'; 'mspaint' = 'Windows'; 'SnippingTool' = 'Windows'; "notepad" = 'Windows';
         # System ⚙️
-        'bash' = 'System'; 'pwsh' = 'System'; 'winget' = 'System'; 'wsl' = 'System'; 'wt' = 'System';
+        'winget' = 'System'; 'wsl' = 'System'; 'wt' = 'System';
+        # Shells 🐚
+        'bash' = 'Shells'; 'pwsh' = 'Shells'; 
         # Dev Tools 🛠️
         'code' = 'Dev'; 'gpg' = 'Dev'; 
         # Dotnet
