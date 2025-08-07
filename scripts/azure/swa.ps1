@@ -1,4 +1,13 @@
-#Start SWA
+<#
+.SYNOPSIS
+    swa list app settings
+#>
+function getSwaAppSettings($resource, $resourceGroup){
+     az staticwebapp appsettings list -n $resource -g $resourceGroup
+}
+
+### Start SWA ###
+
 <#
 .SYNOPSIS
     swa start alias
