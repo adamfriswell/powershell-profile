@@ -10,14 +10,14 @@ function zetiBranch($ticketNumber){
 Set-Item -Path function:global:"bs" -Value "cd $billingServicePath"
 Set-Item -Path function:global:"zvs" -Value "cd C:\Users\adamf\source\repos\VehicleService"
 
-Set-Item -Path function:global:"invswa" -Value "cd $billingServicePath\InvestorDashboard.Swa"
-Set-Item -Path function:global:"invapi" -Value "cd $billingServicePath\InvestorDashboard.Swa\InvestorDashboard.Api"
+Set-Item -Path function:global:"invest.cdSwa" -Value "cd $billingServicePath\InvestorDashboard.Swa"
+Set-Item -Path function:global:"invest.cdApi" -Value "cd $billingServicePath\InvestorDashboard.Swa\InvestorDashboard.Api"
 
-Set-Item -Path function:global:"oppswa" -Value "cd $billingServicePath\AssetOperatorPortal"
-Set-Item -Path function:global:"oppapi" -Value "cd $billingServicePath\AssetOperatorPortal\AssetOperatorPortal.Api"
+Set-Item -Path function:global:"operate.cdSwa" -Value "cd $billingServicePath\AssetOperatorPortal"
+Set-Item -Path function:global:"operate.cdApi" -Value "cd $billingServicePath\AssetOperatorPortal\AssetOperatorPortal.Api"
 
-Set-Item -Path function:global:"manswa" -Value "cd $billingServicePath\BillingService.Swa"
-Set-Item -Path function:global:"manapi" -Value "cd $billingServicePath\BillingService.Swa\BillingService.Swa.Api"
+Set-Item -Path function:global:"manage.cdSwa" -Value "cd $billingServicePath\BillingService.Swa"
+Set-Item -Path function:global:"manage.cdApi" -Value "cd $billingServicePath\BillingService.Swa\BillingService.Swa.Api"
 
 Set-Item -Path function:global:"bfn" -Value "cd $billingServicePath\BillingService.Function"
 Set-Item -Path function:global:"hds" -Value "cd $billingServicePath\HydrogenDispenserService.Function"
@@ -30,7 +30,7 @@ Set-Item -Path function:global:"css" -Value "cd $billingServicePath\ChargingStat
 .SYNOPSIS
     invest yarn start alias
 #>
-function serveInvContent(){
+function invest.serve(){
     invswa
     yarn start
 }
@@ -39,7 +39,7 @@ function serveInvContent(){
 .SYNOPSIS
     opearte yarn start alias
 #>
-function serveOppContent(){
+function operate.serve(){
     oppswa
     yarn start
 }
@@ -48,7 +48,7 @@ function serveOppContent(){
 .SYNOPSIS
     manage yarn start alias
 #>
-function serveManContent(){
+function manage.serve(){
     manswa
     yarn start
 }
@@ -60,7 +60,7 @@ function serveManContent(){
 .SYNOPSIS
     invest func start alias
 #>
-function startInvApi(){
+function invest.func(){
     invapi
     func start
 }
@@ -69,7 +69,7 @@ function startInvApi(){
 .SYNOPSIS
     operate func start alias
 #>
-function startOppApi(){
+function operate.func(){
     oppapi
     func start
 }
@@ -78,7 +78,7 @@ function startOppApi(){
 .SYNOPSIS
     manage func start alias
 #>
-function startManApi(){
+function manage.func(){
     manapi
     func start
 }
@@ -90,7 +90,7 @@ function startManApi(){
 .SYNOPSIS
     invest swa start alias
 #>
-function startInvSwa(){
+function invest.start(){
     invswa
     startSwa
 }
@@ -99,7 +99,7 @@ function startInvSwa(){
 .SYNOPSIS
     opearte swa start alias
 #>
-function startOppSwa(){
+function operate.start(){
     oppswa
     startSwa
 }
@@ -108,7 +108,7 @@ function startOppSwa(){
 .SYNOPSIS
     manage swa start alias
 #>
-function startManSwa(){
+function manage.start(){
     manswa
     startSwa -reactPort 5173
 }
@@ -121,7 +121,7 @@ function startManSwa(){
 .SYNOPSIS
     invest npx swa start alias
 #>
-function npxStartInvSwa(){
+function invest.startNpx(){
     invswa
     npxStartSwa
 }
@@ -130,7 +130,7 @@ function npxStartInvSwa(){
 .SYNOPSIS
     operate npx swa start alias
 #>
-function npxStartOppSwa(){
+function operate.startNpx(){
     oppswa
     npxStartSwa
 }
@@ -139,7 +139,7 @@ function npxStartOppSwa(){
 .SYNOPSIS
     manage npx swa start alias
 #>
-function npxStartManSwa(){
+function manage.startNpx(){
     manswa
     npxStartSwa -reactPort 5173
 }
@@ -151,7 +151,7 @@ function npxStartManSwa(){
 .SYNOPSIS
     invest npx self hosted swa start alias
 #>
-function npxSelfStartInvSwa(){
+function invest.startNpxSelf(){
     invswa
     npxSelfHostedStartSwa
 }
@@ -160,7 +160,7 @@ function npxSelfStartInvSwa(){
 .SYNOPSIS
     operate npx swa start alias
 #>
-function npxSelfStartOppSwa(){
+function operate.startNpxSelf(){
     oppswa
     npxSelfHostedStartSwa
 }
@@ -169,7 +169,7 @@ function npxSelfStartOppSwa(){
 .SYNOPSIS
     manage npx swa start alias
 #>
-function npxSelfStartManSwa(){
+function manage.startNpxSelf(){
     manswa
     npxSelfHostedStartSwa -reactPort 5173
 }
@@ -183,17 +183,9 @@ function npxSelfStartManSwa(){
 
 <#
 .SYNOPSIS
-    start manage portal: serve content, start API, start SWA
-#>
-function startManage(){
-    startPortal "BillingService.Swa" "BillingService.Swa.Api" 5173
-}
-
-<#
-.SYNOPSIS
     start invest portal: serve content, start API, start SWA
 #>
-function startInvest(){
+function invest.startAll(){
     startPortal "InvestorDashboard.Swa" "InvestorDashboard.Api"
 }
 
@@ -201,8 +193,15 @@ function startInvest(){
 .SYNOPSIS
     start operate portal: serve content, start API, start SWA
 #>
-function startOperate(){
+function operate.startAll(){
     startPortal "AssetOperatorPortal" "AssetOperatorPortal.Api"
+}
+<#
+.SYNOPSIS
+    start manage portal: serve content, start API, start SWA
+#>
+function manage.startAll(){
+    startPortal "BillingService.Swa" "BillingService.Swa.Api" 5173
 }
 
 <#
