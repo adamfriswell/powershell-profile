@@ -2,14 +2,14 @@
 
 $billingServicePath = "C:\Users\adamf\source\repos\BillingService"
 
-Set-Item -Path function:global:"bs" -Value "cd $billingServicePath"
-Set-Item -Path function:global:"zvs" -Value "cd C:\Users\adamf\source\repos\VehicleService"
-
 function zetiBranch($ticketNumber){
     gmp -branch "feature/af/zhs-$ticketNumber"
 }
 
-#Aliases for cd to paths
+### Aliases ###
+Set-Item -Path function:global:"bs" -Value "cd $billingServicePath"
+Set-Item -Path function:global:"zvs" -Value "cd C:\Users\adamf\source\repos\VehicleService"
+
 Set-Item -Path function:global:"invswa" -Value "cd $billingServicePath\InvestorDashboard.Swa"
 Set-Item -Path function:global:"invapi" -Value "cd $billingServicePath\InvestorDashboard.Swa\InvestorDashboard.Api"
 
@@ -23,23 +23,16 @@ Set-Item -Path function:global:"bfn" -Value "cd $billingServicePath\BillingServi
 Set-Item -Path function:global:"hds" -Value "cd $billingServicePath\HydrogenDispenserService.Function"
 Set-Item -Path function:global:"css" -Value "cd $billingServicePath\ChargingStationService.Function"
 
-#Serve API content
+#---------------------------------------------------------------------------------------------------------------------#
 
-<#
-.SYNOPSIS
-    yarn start alias
-#>
-function serveContent(){
-    yarn start
-}
-
+### Serve API content ###
 <#
 .SYNOPSIS
     invest yarn start alias
 #>
 function serveInvContent(){
     invswa
-    serveContent
+    yarn start
 }
 
 <#
@@ -48,7 +41,7 @@ function serveInvContent(){
 #>
 function serveOppContent(){
     oppswa
-    serveContent
+    yarn start
 }
 
 <#
@@ -57,25 +50,19 @@ function serveOppContent(){
 #>
 function serveManContent(){
     manswa
-    serveContent
+    yarn start
 }
 
-#Start API
-<#
-.SYNOPSIS
-    func start alias
-#>
-function startApi(){
-    func start
-}
+#---------------------------------------------------------------------------------------------------------------------#
 
+### Start API ###
 <#
 .SYNOPSIS
     invest func start alias
 #>
 function startInvApi(){
     invapi
-    startApi
+    func start
 }
 
 <#
@@ -84,7 +71,7 @@ function startInvApi(){
 #>
 function startOppApi(){
     oppapi
-    startApi
+    func start
 }
 
 <#
@@ -93,9 +80,12 @@ function startOppApi(){
 #>
 function startManApi(){
     manapi
-    startApi
+    func start
 }
 
+#---------------------------------------------------------------------------------------------------------------------#
+
+### Start SWA ###
 <#
 .SYNOPSIS
     invest swa start alias
@@ -122,6 +112,10 @@ function startManSwa(){
     manswa
     startSwa -reactPort 5173
 }
+
+#---------------------------------------------------------------------------------------------------------------------#
+
+### Start SWA with npx ###
 
 <#
 .SYNOPSIS
@@ -150,9 +144,12 @@ function npxStartManSwa(){
     npxStartSwa -reactPort 5173
 }
 
+#---------------------------------------------------------------------------------------------------------------------#
+
+### Start SWA with npx ###
 <#
 .SYNOPSIS
-    invest npx swa start alias
+    invest npx self hosted swa start alias
 #>
 function npxSelfStartInvSwa(){
     invswa
@@ -177,7 +174,11 @@ function npxSelfStartManSwa(){
     npxSelfHostedStartSwa -reactPort 5173
 }
 
-#Start each portal: serve content, start API, start SWA
+#---------------------------------------------------------------------------------------------------------------------#
+
+### Start each portal ###
+
+#serve content, start API, start SWA
 #currently not using above aliases as powershell profile won't load when starting new Windows Teminal tab
 
 <#
@@ -218,7 +219,14 @@ function startPortal($swaPath, $apiPath, $reactPort = 3000, $apiPort = 7071, $sw
     Start-Process chrome "http://localhost:$swaPort"
 }
 
+#---------------------------------------------------------------------------------------------------------------------#
+
+### Scratchpad ###
+
 # dotnet test BillingService.IntegrationTests/BillingService.IntegrationTests.csproj
 
 # az appservice plan show --ids $(az functionapp show --name funcbillingservicecint -g rgbillingservicecint --query serverFarmId -o tsv) --query sku
 # az functionapp show --name funcbillingservicecint --resource-group rgbillingservicecint --query "{serverFarmId: serverFarmId, state: state}"
+
+
+#---------------------------------------------------------------------------------------------------------------------#

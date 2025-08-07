@@ -1,5 +1,13 @@
 <#
 .SYNOPSIS
+    func start alias
+#>
+function startFn(){
+    func start
+}
+
+<#
+.SYNOPSIS
     Fetch Azure Functions app settings and set as local.settings.json
 #>
 function getFuncAppSettings($fnApp){
