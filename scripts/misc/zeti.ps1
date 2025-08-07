@@ -1,3 +1,5 @@
+. $PSScriptRoot\..\azure\swa.ps1
+
 $billingServicePath = "C:\Users\adamf\source\repos\BillingService"
 
 Set-Item -Path function:global:"bs" -Value "cd $billingServicePath"
@@ -8,23 +10,18 @@ function zetiBranch($ticketNumber){
 }
 
 #Aliases for cd to paths
-$invswa = [scriptblock]::Create("cd $billingServicePath\InvestorDashboard.Swa")
-Set-Item -Path function:global:"invswa" -Value $invswa
+Set-Item -Path function:global:"invswa" -Value "cd $billingServicePath\InvestorDashboard.Swa"
+Set-Item -Path function:global:"invapi" -Value "cd $billingServicePath\InvestorDashboard.Swa\InvestorDashboard.Api"
 
-$invapi = [scriptblock]::Create("cd $billingServicePath\InvestorDashboard.Swa\InvestorDashboard.Api")
-Set-Item -Path function:global:"invapi" -Value $invapi
+Set-Item -Path function:global:"oppswa" -Value "cd $billingServicePath\AssetOperatorPortal"
+Set-Item -Path function:global:"oppapi" -Value "cd $billingServicePath\AssetOperatorPortal\AssetOperatorPortal.Api"
 
-$oppswa = [scriptblock]::Create("cd $billingServicePath\AssetOperatorPortal")
-Set-Item -Path function:global:"oppswa" -Value $oppswa
+Set-Item -Path function:global:"manswa" -Value "cd $billingServicePath\BillingService.Swa"
+Set-Item -Path function:global:"manapi" -Value "cd $billingServicePath\BillingService.Swa\BillingService.Swa.Api"
 
-$oppapi = [scriptblock]::Create("cd $billingServicePath\AssetOperatorPortal\AssetOperatorPortal.Api")
-Set-Item -Path function:global:"oppapi" -Value $oppapi
-
-$manswa = [scriptblock]::Create("cd $billingServicePath\BillingService.Swa")
-Set-Item -Path function:global:"manswa" -Value $manswa
-
-$manapi = [scriptblock]::Create("cd $billingServicePath\BillingService.Swa\BillingService.Swa.Api")
-Set-Item -Path function:global:"manapi" -Value $manapi
+Set-Item -Path function:global:"bfn" -Value "cd $billingServicePath\BillingService.Function"
+Set-Item -Path function:global:"hds" -Value "cd $billingServicePath\HydrogenDispenserService.Function"
+Set-Item -Path function:global:"css" -Value "cd $billingServicePath\ChargingStationService.Function"
 
 #Serve API content
 
@@ -97,35 +94,6 @@ function startOppApi(){
 function startManApi(){
     manapi
     startApi
-}
-
-#Start SWA
-<#
-.SYNOPSIS
-    swa start alias
-#>
-function startSwa($reactPort = 3000, $apiPort = 7071){
-    swa start http://localhost:$reactPort --api-location http://localhost:$apiPort
-}
-
-<#
-.SYNOPSIS
-    npx swa start alias hosted
-.DESCRIPTION
-    Passing `--api-location` is used when the swa cli runs the func app process for you
-#>
-function npxStartSwa($reactPort = 3000, $apiPort = 7071){
-    npx @azure/static-web-apps-cli@2.0.1 start http://localhost:$reactPort --api-location http://localhost:$apiPort
-}
-
-<#
-.SYNOPSIS
-    npx swa start alias self-hosted
-.DESCRIPTION
-    Passing `--api-devserver-url` instead of `--api-location` is used when you run the func app locally in a sepearte process
-#>
-function npxSelfHostedStartSwa($reactPort = 3000, $apiPort = 7071){
-    npx @azure/static-web-apps-cli@2.0.1 start http://localhost:$reactPort --api-devserver-url http://localhost:$apiPort
 }
 
 <#
