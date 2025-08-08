@@ -14,12 +14,19 @@ Please feel free to clone this repo and uses these scripts.
 ```
 4. You might have to set your shells execution policy `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine`, you might also need to flip this setting ![executionScopeSetting](executionScopeSetting.png)
 5. These scripts use vanilla Powershell along with the following CLI tools as a dependancy for some functions:
-    * [Git](https://git-scm.com/)
-    * [dotnet SDK](https://dotnet.microsoft.com/en-us/download)
-    * [dotnet-outdated tool](https://github.com/dotnet-outdated/dotnet-outdated)
-    * Requires auth with account:
-        * [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/)
-        * [GitHub CLI](https://cli.github.com/)
+    * Git
+        * [Git](https://git-scm.com/)
+        * [GitHub CLI (`gh`)](https://cli.github.com/) (requires auth)
+    * Dotnet
+        * [dotnet SDK](https://dotnet.microsoft.com/en-us/download)
+        * [dotnet-outdated tool](https://github.com/dotnet-outdated/dotnet-outdated)
+    * Azure
+        * [Azure CLI (`az`)](https://learn.microsoft.com/en-us/cli/azure/) (requires auth)
+        * [Azure Functions Core Tools (`func`)](https://github.com/Azure/azure-functions-core-tools)
+        * [Azure Static Web Apps CLI (`swa`)](https://azure.github.io/static-web-apps-cli/)
+    * JavaScript
+        * NPM
+        * NPX
 
 
 > [!NOTE]
