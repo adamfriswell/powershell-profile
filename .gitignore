@@ -1,2 +1,4 @@
 # Ignore Visual Studio .vs folder
 .vs/
+TempCompare1.cs
+TempCompare2.cs
