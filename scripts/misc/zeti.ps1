@@ -19,6 +19,9 @@ Set-Item -Path function:global:"operate.cdApi" -Value "cd $billingServicePath\As
 Set-Item -Path function:global:"manage.cdSwa" -Value "cd $billingServicePath\BillingService.Swa"
 Set-Item -Path function:global:"manage.cdApi" -Value "cd $billingServicePath\BillingService.Swa\BillingService.Swa.Api"
 
+Set-Item -Path function:global:"hub.cdSwa" -Value "cd $billingServicePath\Zeti.Hub.Swa"
+Set-Item -Path function:global:"hub.cdApi" -Value "cd $billingServicePath\Zeti.Hub.Swa\Zeti.Hub.Swa.Api"
+
 Set-Item -Path function:global:"bfn" -Value "cd $billingServicePath\BillingService.Function"
 Set-Item -Path function:global:"hds" -Value "cd $billingServicePath\HydrogenDispenserService.Function"
 Set-Item -Path function:global:"css" -Value "cd $billingServicePath\ChargingStationService.Function"
@@ -31,7 +34,7 @@ Set-Item -Path function:global:"css" -Value "cd $billingServicePath\ChargingStat
     invest yarn start alias
 #>
 function invest.serve(){
-    invswa
+    invest.cdSwa
     yarn start
 }
 
@@ -40,7 +43,7 @@ function invest.serve(){
     opearte yarn start alias
 #>
 function operate.serve(){
-    oppswa
+    operate.cdSwa
     yarn start
 }
 
@@ -49,7 +52,16 @@ function operate.serve(){
     manage yarn start alias
 #>
 function manage.serve(){
-    manswa
+    manage.cdSwa
+    yarn start
+}
+
+<#
+.SYNOPSIS
+    hub yarn start alias
+#>
+function hub.serve(){
+    hub.cdSwa
     yarn start
 }
 
@@ -61,7 +73,7 @@ function manage.serve(){
     invest func start alias
 #>
 function invest.func(){
-    invapi
+    invest.cdApi
     func start
 }
 
@@ -70,7 +82,7 @@ function invest.func(){
     operate func start alias
 #>
 function operate.func(){
-    oppapi
+    operate.cdApi
     func start
 }
 
@@ -79,7 +91,17 @@ function operate.func(){
     manage func start alias
 #>
 function manage.func(){
-    manapi
+    manage.cdApi
+    func start
+}
+#
+
+<#
+.SYNOPSIS
+    hub func start alias
+#>
+function hub.func(){
+    hub.cdApi
     func start
 }
 
@@ -91,7 +113,7 @@ function manage.func(){
     invest swa start alias
 #>
 function invest.start(){
-    invswa
+    invest.cdSwa
     startSwa
 }
 
@@ -100,7 +122,7 @@ function invest.start(){
     opearte swa start alias
 #>
 function operate.start(){
-    oppswa
+    operate.cdSwa
     startSwa
 }
 
@@ -109,8 +131,17 @@ function operate.start(){
     manage swa start alias
 #>
 function manage.start(){
-    manswa
+    manage.cdSwa
     startSwa -reactPort 5173
+}
+
+<#
+.SYNOPSIS
+    hub swa start alias
+#>
+function hub.start(){
+    hub.cdSwa
+    startSwa
 }
 
 #---------------------------------------------------------------------------------------------------------------------#
@@ -122,7 +153,7 @@ function manage.start(){
     invest npx swa start alias
 #>
 function invest.startNpx(){
-    invswa
+    invest.cdSwa
     npxStartSwa
 }
 
@@ -131,7 +162,7 @@ function invest.startNpx(){
     operate npx swa start alias
 #>
 function operate.startNpx(){
-    oppswa
+    operate.cdSwa
     npxStartSwa
 }
 
@@ -140,8 +171,17 @@ function operate.startNpx(){
     manage npx swa start alias
 #>
 function manage.startNpx(){
-    manswa
+    manage.cdSwa
     npxStartSwa -reactPort 5173
+}
+
+<#
+.SYNOPSIS
+    hub swa start alias
+#>
+function hub.start(){
+    hub.cdSwa
+    startSwa
 }
 
 #---------------------------------------------------------------------------------------------------------------------#
@@ -152,7 +192,7 @@ function manage.startNpx(){
     invest npx self hosted swa start alias
 #>
 function invest.startNpxSelf(){
-    invswa
+    invest.cdSwa
     npxSelfHostedStartSwa
 }
 
@@ -161,7 +201,7 @@ function invest.startNpxSelf(){
     operate npx swa start alias
 #>
 function operate.startNpxSelf(){
-    oppswa
+    operate.cdSwa
     npxSelfHostedStartSwa
 }
 
@@ -170,8 +210,17 @@ function operate.startNpxSelf(){
     manage npx swa start alias
 #>
 function manage.startNpxSelf(){
-    manswa
+    manage.cdSwa
     npxSelfHostedStartSwa -reactPort 5173
+}
+
+<#
+.SYNOPSIS
+    hub npx swa start alias
+#>
+function hub.startNpxSelf(){
+    hub.cdSwa
+    npxSelfHostedStartSwa
 }
 
 #---------------------------------------------------------------------------------------------------------------------#
@@ -196,6 +245,7 @@ function invest.startAll(){
 function operate.startAll(){
     startPortal "AssetOperatorPortal" "AssetOperatorPortal.Api"
 }
+
 <#
 .SYNOPSIS
     start manage portal: serve content, start API, start SWA
@@ -206,11 +256,23 @@ function manage.startAll(){
 
 <#
 .SYNOPSIS
+    start hub portal: serve content, start API, start SWA
+#>
+function hub.startAll(){
+    startPortal "Zeti.Hub.Swa" "Zeti.Hub.Swa.Api"
+}
+
+<#
+.SYNOPSIS
     start a portal: serve content, start API, start SWA
 #>
 function startPortal($swaPath, $apiPath, $reactPort = 3000, $apiPort = 7071, $swaPort = 4280){
     wt -w 0 new-tab --title "Serve Content" -d "C:\Users\adamf\source\repos\BillingService\$swaPath" pwsh -c "yarn start"
+    Start-Sleep -Milliseconds 500
+    
     wt -w 0 new-tab --title "API" -d "C:\Users\adamf\source\repos\BillingService\$swaPath\$apiPath" pwsh -c "func start"
+    Start-Sleep -Milliseconds 500
+    
     wt -w 0 new-tab --title "SWA" -d "C:\Users\adamf\source\repos\BillingService\$swaPath" pwsh -c "swa start http://localhost:$reactPort --api-devserver-url http://localhost:$apiPort"
     
     Start-Process chrome "http://localhost:$reactPort"
