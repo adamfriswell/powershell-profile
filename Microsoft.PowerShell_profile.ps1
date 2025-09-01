@@ -21,6 +21,7 @@ Set-Alias ntn "C:\Users\$username\AppData\Local\Programs\Notion\Notion.exe"
 . "$repoPath\powershell-profile\scripts\git\gitImport.ps1"
 . "$repoPath\powershell-profile\scripts\git\gitRepos.ps1"
 
+. "$repoPath\powershell-profile\scripts\javascript\node.ps1"
 . "$repoPath\powershell-profile\scripts\javascript\npm.ps1"
 
 . "$repoPath\powershell-profile\scripts\misc\claude.ps1"
