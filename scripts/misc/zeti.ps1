@@ -25,6 +25,7 @@ Set-Item -Path function:global:"hub.cdApi" -Value "cd $billingServicePath\Zeti.H
 Set-Item -Path function:global:"bfn" -Value "cd $billingServicePath\BillingService.Function"
 Set-Item -Path function:global:"hds" -Value "cd $billingServicePath\HydrogenDispenserService.Function"
 Set-Item -Path function:global:"css" -Value "cd $billingServicePath\ChargingStationService.Function"
+Set-Item -Path function:global:"pcomp" -Value "cd $billingServicePath\Portals.Components"
 
 #---------------------------------------------------------------------------------------------------------------------#
 
