@@ -7,8 +7,7 @@
     gmp stands for "git main pull". 
 #>
 function gmp($branch){
-    git checkout main
-    git pull
+    gitCheckoutMainAndPull
     if($branch){
         git checkout -b $branch
     }
@@ -22,12 +21,20 @@ function gmp($branch){
 #>
 function gmm(){
     #$branch = git rev-parse --abbrev-ref HEAD
-    git checkout main
-    git pull
+    gitCheckoutMainAndPull
+    Write-Host "Checkout previous branch" -ForegroundColor Cyan
     git checkout - #$branch
+    Write-Host "Merge main into current branch" -ForegroundColor Cyan
     git merge main
     # git add .
     # git push
+}
+
+function gitCheckoutMainAndPull(){
+    Write-Host "Checkout main" -ForegroundColor Cyan
+    git checkout main
+    Write-Host "Pull" -ForegroundColor Cyan
+    git pull
 }
 
 <#

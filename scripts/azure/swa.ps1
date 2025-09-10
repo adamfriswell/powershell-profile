@@ -3,7 +3,7 @@
     swa list app settings
 #>
 function getSwaAppSettings($resource, $resourceGroup){
-     az staticwebapp appsettings list -n $resource -g $resourceGroup
+    az staticwebapp appsettings list -n $resource -g $resourceGroup
 }
 
 ### Start SWA ###

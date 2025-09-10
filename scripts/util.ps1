@@ -34,6 +34,9 @@ function killPort($processId){
     taskkill /PID $processId /F
 }
 
+function here(){
+    explorer .
+}
 
 <#
 .SYNOPSIS
